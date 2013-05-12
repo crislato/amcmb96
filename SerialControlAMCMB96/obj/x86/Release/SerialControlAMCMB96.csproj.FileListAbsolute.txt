@@ -1,0 +1,13 @@
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Release\SerialControlAMCMB96.exe.config
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Release\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Release\SerialControlAMCMB96.pdb
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Release\System.configuration.dll
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Release\ZedGraph.dll
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Release\SerialControlAMCMB96.FormCOMOptions.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Release\SerialControlAMCMB96.FormMain.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Release\SerialControlAMCMB96.Properties.Resources.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Release\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Release\SerialControlAMCMB96.pdb

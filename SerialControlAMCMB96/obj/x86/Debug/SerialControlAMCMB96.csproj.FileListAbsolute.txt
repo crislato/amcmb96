@@ -1,0 +1,59 @@
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe.config
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.pdb
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\bin\Debug\System.configuration.dll
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormCOMOptions.resources
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormMain.resources
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.Properties.Resources.resources
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
+C:\Users\Crislato\documents\visual studio 2010\Projects\SerialControlAMCMB96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe.config
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.pdb
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\bin\Debug\System.configuration.dll
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormCOMOptions.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormMain.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.Properties.Resources.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_22Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe.config
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.pdb
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\bin\Debug\System.configuration.dll
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormCOMOptions.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormMain.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.Properties.Resources.resources
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Escritorio\SerialControlAMCMB96_24Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe.config
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.pdb
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\bin\Debug\System.configuration.dll
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormCOMOptions.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormMain.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.Properties.Resources.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe.config
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.pdb
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\bin\Debug\System.Configuration.dll
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.csprojResolveAssemblyReference.cache
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormCOMOptions.resources
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormMain.resources
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.Properties.Resources.resources
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.csproj.GenerateResource.Cache
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
+D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
