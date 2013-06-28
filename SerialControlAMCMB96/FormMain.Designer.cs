@@ -59,12 +59,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonActivarAMC = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonEnviarControlInt = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButtonControlIntAct = new System.Windows.Forms.RadioButton();
             this.radioButtonControlIntDesact = new System.Windows.Forms.RadioButton();
             this.serialPortMain = new System.IO.Ports.SerialPort(this.components);
             this.panelModoAAP = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonPonerLimites = new System.Windows.Forms.Button();
+            this.numericUpDownLimSup = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownLimInf = new System.Windows.Forms.NumericUpDown();
+            this.labelLims2 = new System.Windows.Forms.Label();
+            this.labelLims1 = new System.Windows.Forms.Label();
+            this.labelLimSupValue = new System.Windows.Forms.Label();
+            this.labelLimInfValue = new System.Windows.Forms.Label();
+            this.labelLimSup = new System.Windows.Forms.Label();
+            this.labelLimInf = new System.Windows.Forms.Label();
             this.buttonLimpiarBancoAAP = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDownAAPRate = new System.Windows.Forms.NumericUpDown();
@@ -82,26 +91,16 @@
             this.zedGraphControlMain = new ZedGraph.ZedGraphControl();
             this.labelAMCActivo = new System.Windows.Forms.Label();
             this.labelNumAMC = new System.Windows.Forms.Label();
-            this.labelLimInf = new System.Windows.Forms.Label();
-            this.labelLimSup = new System.Windows.Forms.Label();
-            this.labelLimInfValue = new System.Windows.Forms.Label();
-            this.labelLimSupValue = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.labelLims1 = new System.Windows.Forms.Label();
-            this.labelLims2 = new System.Windows.Forms.Label();
-            this.numericUpDownLimInf = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownLimSup = new System.Windows.Forms.NumericUpDown();
-            this.buttonPonerLimites = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panelModoAMC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMCRate)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelModoAAP.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLimSup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLimInf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAAPRate)).BeginInit();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLimInf)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLimSup)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -128,49 +127,49 @@
             this.toolStripMenuItem1,
             this.salirToolStripMenuItem});
             this.MenuArchivo.Name = "MenuArchivo";
-            this.MenuArchivo.Size = new System.Drawing.Size(55, 20);
+            this.MenuArchivo.Size = new System.Drawing.Size(60, 20);
             this.MenuArchivo.Text = "&Archivo";
             // 
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.nuevoToolStripMenuItem.Text = "&Nuevo";
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.abrirToolStripMenuItem.Text = "&Abrir";
             // 
             // guardarToolStripMenuItem
             // 
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.guardarToolStripMenuItem.Text = "&Guardar";
             // 
             // guardarComoToolStripMenuItem
             // 
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.guardarComoToolStripMenuItem.Text = "G&uardar como...";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(161, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(156, 6);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.salirToolStripMenuItem.Text = "&Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // MenuEditar
             // 
             this.MenuEditar.Name = "MenuEditar";
-            this.MenuEditar.Size = new System.Drawing.Size(47, 20);
+            this.MenuEditar.Size = new System.Drawing.Size(49, 20);
             this.MenuEditar.Text = "&Editar";
             // 
             // MenuHerramientas
@@ -182,14 +181,14 @@
             this.MenuOpciones,
             this.menuChequeoID});
             this.MenuHerramientas.Name = "MenuHerramientas";
-            this.MenuHerramientas.Size = new System.Drawing.Size(83, 20);
+            this.MenuHerramientas.Size = new System.Drawing.Size(90, 20);
             this.MenuHerramientas.Text = "&Herramientas";
             // 
             // MenuCOM
             // 
             this.MenuCOM.Name = "MenuCOM";
             this.MenuCOM.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
-            this.MenuCOM.Size = new System.Drawing.Size(226, 22);
+            this.MenuCOM.Size = new System.Drawing.Size(232, 22);
             this.MenuCOM.Text = "Configuración COM";
             this.MenuCOM.Click += new System.EventHandler(this.MenuCOM_Click);
             // 
@@ -197,7 +196,7 @@
             // 
             this.MenuModoAMC.Name = "MenuModoAMC";
             this.MenuModoAMC.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F9)));
-            this.MenuModoAMC.Size = new System.Drawing.Size(226, 22);
+            this.MenuModoAMC.Size = new System.Drawing.Size(232, 22);
             this.MenuModoAMC.Text = "Modo AMC";
             this.MenuModoAMC.Click += new System.EventHandler(this.MenuModoAMC_Click);
             // 
@@ -205,7 +204,7 @@
             // 
             this.MenuModoAAP.Name = "MenuModoAAP";
             this.MenuModoAAP.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F10)));
-            this.MenuModoAAP.Size = new System.Drawing.Size(226, 22);
+            this.MenuModoAAP.Size = new System.Drawing.Size(232, 22);
             this.MenuModoAAP.Text = "Modo AAP";
             this.MenuModoAAP.Click += new System.EventHandler(this.MenuModoAAP_Click);
             // 
@@ -213,13 +212,13 @@
             // 
             this.MenuOpciones.Name = "MenuOpciones";
             this.MenuOpciones.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F12)));
-            this.MenuOpciones.Size = new System.Drawing.Size(226, 22);
+            this.MenuOpciones.Size = new System.Drawing.Size(232, 22);
             this.MenuOpciones.Text = "Opciones";
             // 
             // menuChequeoID
             // 
             this.menuChequeoID.Name = "menuChequeoID";
-            this.menuChequeoID.Size = new System.Drawing.Size(226, 22);
+            this.menuChequeoID.Size = new System.Drawing.Size(232, 22);
             this.menuChequeoID.Text = "Chequear ID";
             this.menuChequeoID.Click += new System.EventHandler(this.menuChequeoID_Click);
             // 
@@ -228,13 +227,13 @@
             this.MenuAbout.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.acercaDeMossCommToolStripMenuItem});
             this.MenuAbout.Name = "MenuAbout";
-            this.MenuAbout.Size = new System.Drawing.Size(79, 20);
+            this.MenuAbout.Size = new System.Drawing.Size(80, 20);
             this.MenuAbout.Text = "Acerca &de...";
             // 
             // acercaDeMossCommToolStripMenuItem
             // 
             this.acercaDeMossCommToolStripMenuItem.Name = "acercaDeMossCommToolStripMenuItem";
-            this.acercaDeMossCommToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.acercaDeMossCommToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.acercaDeMossCommToolStripMenuItem.Text = "Acerca de MossComm";
             // 
             // toolStrip1
@@ -374,7 +373,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonEnviarControlInt);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.radioButtonControlIntAct);
             this.panel1.Controls.Add(this.radioButtonControlIntDesact);
@@ -383,17 +381,6 @@
             this.panel1.Size = new System.Drawing.Size(220, 120);
             this.panel1.TabIndex = 9;
             // 
-            // buttonEnviarControlInt
-            // 
-            this.buttonEnviarControlInt.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonEnviarControlInt.Location = new System.Drawing.Point(35, 82);
-            this.buttonEnviarControlInt.Name = "buttonEnviarControlInt";
-            this.buttonEnviarControlInt.Size = new System.Drawing.Size(148, 23);
-            this.buttonEnviarControlInt.TabIndex = 7;
-            this.buttonEnviarControlInt.Text = "Enviar Comando";
-            this.buttonEnviarControlInt.UseVisualStyleBackColor = true;
-            this.buttonEnviarControlInt.Click += new System.EventHandler(this.buttonEnviarControlInt_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -401,10 +388,10 @@
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label2.Location = new System.Drawing.Point(12, 5);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 15);
+            this.label2.Size = new System.Drawing.Size(144, 15);
             this.label2.TabIndex = 4;
             this.label2.Tag = "Control del mecanismo de interrupción del modo";
-            this.label2.Text = "Control de interrupción";
+            this.label2.Text = "Activar/Desactivar Medición";
             // 
             // radioButtonControlIntAct
             // 
@@ -416,6 +403,7 @@
             this.radioButtonControlIntAct.TabStop = true;
             this.radioButtonControlIntAct.Text = "Activado";
             this.radioButtonControlIntAct.UseVisualStyleBackColor = true;
+            this.radioButtonControlIntAct.CheckedChanged += new System.EventHandler(this.radioButtonControlIntAct_CheckedChanged_1);
             // 
             // radioButtonControlIntDesact
             // 
@@ -453,6 +441,129 @@
             this.panelModoAAP.Size = new System.Drawing.Size(221, 686);
             this.panelModoAAP.TabIndex = 3;
             this.panelModoAAP.Visible = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonPonerLimites);
+            this.panel2.Controls.Add(this.numericUpDownLimSup);
+            this.panel2.Controls.Add(this.numericUpDownLimInf);
+            this.panel2.Controls.Add(this.labelLims2);
+            this.panel2.Controls.Add(this.labelLims1);
+            this.panel2.Location = new System.Drawing.Point(-1, 367);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(221, 135);
+            this.panel2.TabIndex = 20;
+            // 
+            // buttonPonerLimites
+            // 
+            this.buttonPonerLimites.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonPonerLimites.Location = new System.Drawing.Point(35, 70);
+            this.buttonPonerLimites.Name = "buttonPonerLimites";
+            this.buttonPonerLimites.Size = new System.Drawing.Size(148, 23);
+            this.buttonPonerLimites.TabIndex = 21;
+            this.buttonPonerLimites.Text = "Establecer límites";
+            this.buttonPonerLimites.UseVisualStyleBackColor = true;
+            this.buttonPonerLimites.Click += new System.EventHandler(this.buttonPonerLimites_Click);
+            // 
+            // numericUpDownLimSup
+            // 
+            this.numericUpDownLimSup.Location = new System.Drawing.Point(155, 44);
+            this.numericUpDownLimSup.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDownLimSup.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownLimSup.Name = "numericUpDownLimSup";
+            this.numericUpDownLimSup.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownLimSup.TabIndex = 20;
+            this.numericUpDownLimSup.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDownLimInf
+            // 
+            this.numericUpDownLimInf.Location = new System.Drawing.Point(155, 19);
+            this.numericUpDownLimInf.Maximum = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            this.numericUpDownLimInf.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownLimInf.Name = "numericUpDownLimInf";
+            this.numericUpDownLimInf.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDownLimInf.TabIndex = 19;
+            this.numericUpDownLimInf.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // labelLims2
+            // 
+            this.labelLims2.AutoSize = true;
+            this.labelLims2.Location = new System.Drawing.Point(9, 46);
+            this.labelLims2.Name = "labelLims2";
+            this.labelLims2.Size = new System.Drawing.Size(139, 13);
+            this.labelLims2.TabIndex = 18;
+            this.labelLims2.Text = "Límite Superior de Ventana:";
+            // 
+            // labelLims1
+            // 
+            this.labelLims1.AutoSize = true;
+            this.labelLims1.Location = new System.Drawing.Point(10, 21);
+            this.labelLims1.Name = "labelLims1";
+            this.labelLims1.Size = new System.Drawing.Size(132, 13);
+            this.labelLims1.TabIndex = 17;
+            this.labelLims1.Text = "Límite Inferior de Ventana:";
+            // 
+            // labelLimSupValue
+            // 
+            this.labelLimSupValue.AutoSize = true;
+            this.labelLimSupValue.Location = new System.Drawing.Point(145, 623);
+            this.labelLimSupValue.Name = "labelLimSupValue";
+            this.labelLimSupValue.Size = new System.Drawing.Size(25, 13);
+            this.labelLimSupValue.TabIndex = 19;
+            this.labelLimSupValue.Text = "256";
+            this.labelLimSupValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelLimInfValue
+            // 
+            this.labelLimInfValue.AutoSize = true;
+            this.labelLimInfValue.Location = new System.Drawing.Point(145, 610);
+            this.labelLimInfValue.Name = "labelLimInfValue";
+            this.labelLimInfValue.Size = new System.Drawing.Size(19, 13);
+            this.labelLimInfValue.TabIndex = 18;
+            this.labelLimInfValue.Text = "00";
+            this.labelLimInfValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelLimSup
+            // 
+            this.labelLimSup.AutoSize = true;
+            this.labelLimSup.Location = new System.Drawing.Point(8, 623);
+            this.labelLimSup.Name = "labelLimSup";
+            this.labelLimSup.Size = new System.Drawing.Size(139, 13);
+            this.labelLimSup.TabIndex = 17;
+            this.labelLimSup.Text = "Límite Superior de Ventana:";
+            // 
+            // labelLimInf
+            // 
+            this.labelLimInf.AutoSize = true;
+            this.labelLimInf.Location = new System.Drawing.Point(8, 610);
+            this.labelLimInf.Name = "labelLimInf";
+            this.labelLimInf.Size = new System.Drawing.Size(132, 13);
+            this.labelLimInf.TabIndex = 16;
+            this.labelLimInf.Text = "Límite Inferior de Ventana:";
             // 
             // buttonLimpiarBancoAAP
             // 
@@ -583,7 +694,6 @@
             // 
             // radioButtonControlIntAAPAct
             // 
-            this.radioButtonControlIntAAPAct.AutoEllipsis = true;
             this.radioButtonControlIntAAPAct.AutoSize = true;
             this.radioButtonControlIntAAPAct.BackColor = System.Drawing.SystemColors.ControlLight;
             this.radioButtonControlIntAAPAct.Location = new System.Drawing.Point(12, 36);
@@ -639,129 +749,6 @@
             this.labelNumAMC.TabIndex = 6;
             this.labelNumAMC.Text = "NO DETECTADO";
             // 
-            // labelLimInf
-            // 
-            this.labelLimInf.AutoSize = true;
-            this.labelLimInf.Location = new System.Drawing.Point(8, 610);
-            this.labelLimInf.Name = "labelLimInf";
-            this.labelLimInf.Size = new System.Drawing.Size(132, 13);
-            this.labelLimInf.TabIndex = 16;
-            this.labelLimInf.Text = "Límite Inferior de Ventana:";
-            // 
-            // labelLimSup
-            // 
-            this.labelLimSup.AutoSize = true;
-            this.labelLimSup.Location = new System.Drawing.Point(8, 623);
-            this.labelLimSup.Name = "labelLimSup";
-            this.labelLimSup.Size = new System.Drawing.Size(139, 13);
-            this.labelLimSup.TabIndex = 17;
-            this.labelLimSup.Text = "Límite Superior de Ventana:";
-            // 
-            // labelLimInfValue
-            // 
-            this.labelLimInfValue.AutoSize = true;
-            this.labelLimInfValue.Location = new System.Drawing.Point(145, 610);
-            this.labelLimInfValue.Name = "labelLimInfValue";
-            this.labelLimInfValue.Size = new System.Drawing.Size(19, 13);
-            this.labelLimInfValue.TabIndex = 18;
-            this.labelLimInfValue.Text = "00";
-            this.labelLimInfValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelLimSupValue
-            // 
-            this.labelLimSupValue.AutoSize = true;
-            this.labelLimSupValue.Location = new System.Drawing.Point(145, 623);
-            this.labelLimSupValue.Name = "labelLimSupValue";
-            this.labelLimSupValue.Size = new System.Drawing.Size(25, 13);
-            this.labelLimSupValue.TabIndex = 19;
-            this.labelLimSupValue.Text = "256";
-            this.labelLimSupValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.buttonPonerLimites);
-            this.panel2.Controls.Add(this.numericUpDownLimSup);
-            this.panel2.Controls.Add(this.numericUpDownLimInf);
-            this.panel2.Controls.Add(this.labelLims2);
-            this.panel2.Controls.Add(this.labelLims1);
-            this.panel2.Location = new System.Drawing.Point(-1, 367);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(221, 135);
-            this.panel2.TabIndex = 20;
-            // 
-            // labelLims1
-            // 
-            this.labelLims1.AutoSize = true;
-            this.labelLims1.Location = new System.Drawing.Point(10, 21);
-            this.labelLims1.Name = "labelLims1";
-            this.labelLims1.Size = new System.Drawing.Size(132, 13);
-            this.labelLims1.TabIndex = 17;
-            this.labelLims1.Text = "Límite Inferior de Ventana:";
-            // 
-            // labelLims2
-            // 
-            this.labelLims2.AutoSize = true;
-            this.labelLims2.Location = new System.Drawing.Point(9, 46);
-            this.labelLims2.Name = "labelLims2";
-            this.labelLims2.Size = new System.Drawing.Size(139, 13);
-            this.labelLims2.TabIndex = 18;
-            this.labelLims2.Text = "Límite Superior de Ventana:";
-            // 
-            // numericUpDownLimInf
-            // 
-            this.numericUpDownLimInf.Location = new System.Drawing.Point(155, 19);
-            this.numericUpDownLimInf.Maximum = new decimal(new int[] {
-            250,
-            0,
-            0,
-            0});
-            this.numericUpDownLimInf.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownLimInf.Name = "numericUpDownLimInf";
-            this.numericUpDownLimInf.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownLimInf.TabIndex = 19;
-            this.numericUpDownLimInf.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDownLimSup
-            // 
-            this.numericUpDownLimSup.Location = new System.Drawing.Point(155, 44);
-            this.numericUpDownLimSup.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDownLimSup.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownLimSup.Name = "numericUpDownLimSup";
-            this.numericUpDownLimSup.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDownLimSup.TabIndex = 20;
-            this.numericUpDownLimSup.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            // 
-            // buttonPonerLimites
-            // 
-            this.buttonPonerLimites.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonPonerLimites.Location = new System.Drawing.Point(35, 70);
-            this.buttonPonerLimites.Name = "buttonPonerLimites";
-            this.buttonPonerLimites.Size = new System.Drawing.Size(148, 23);
-            this.buttonPonerLimites.TabIndex = 21;
-            this.buttonPonerLimites.Text = "Establecer límites";
-            this.buttonPonerLimites.UseVisualStyleBackColor = true;
-            this.buttonPonerLimites.Click += new System.EventHandler(this.buttonPonerLimites_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -788,13 +775,13 @@
             this.panel1.PerformLayout();
             this.panelModoAAP.ResumeLayout(false);
             this.panelModoAAP.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLimSup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLimInf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAAPRate)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLimInf)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLimSup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -826,7 +813,6 @@
         private System.Windows.Forms.RadioButton radioButtonAMCContinue;
         private System.Windows.Forms.RadioButton radioButtonAMCInit;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonEnviarControlInt;
         private System.Windows.Forms.RadioButton radioButtonControlIntDesact;
         private System.Windows.Forms.RadioButton radioButtonControlIntAct;
         private System.Windows.Forms.ComboBox comboBoxAMCMode;

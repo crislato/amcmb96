@@ -301,22 +301,6 @@ namespace SerialControlAMCMB96
             buttonActivarAAP.Enabled = false;
         }
 
-        private void buttonEnviarControlInt_Click(object sender, EventArgs e)
-        {
-            if (radioButtonControlIntAct.Checked == true)
-            {
-                string activarMedAMC = "CMA";
-                EnviarOrden(activarMedAMC);
-                buttonActivarAMC.Enabled = true;
-            }
-            if (radioButtonControlIntDesact.Checked == true)
-            {
-                string desactivarMedAMC = "CMD";
-                EnviarOrden(desactivarMedAMC);
-                buttonActivarAMC.Enabled = false;
-            }
-        }
-
         private void buttonEnviarComandoIntAAP_Click(object sender, EventArgs e)
         {
             if (radioButtonControlIntAAPAct.Checked == true)
@@ -361,7 +345,7 @@ namespace SerialControlAMCMB96
 
             if (MenuModoAMC.Checked == true)
             {
-                byte[] buflargo = new byte[10] { 0x45, 0x4D, 0x30, 0x30, 0x30, 0x30, 0x30, 0x37, 0x36, 0x39 };
+                byte[] buflargo = new byte[11] { 0x45, 0x4D, 0x30, 0x30, 0x30, 0x30, 0x30, 0x31, 0x35, 0x33, 0x37 };
                 EnviarOrdenByteEsperarRespuesta(buflargo);
                 serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_BuffAMCReceived);
                 //serialPortMain.Close();
@@ -377,6 +361,17 @@ namespace SerialControlAMCMB96
             }
         }
 
+
+        public void instanciarRecepcionBDatos()
+        {
+            //string unDefined = "BDatos_Dev" + amcID.ToString() + ".bdata";
+            //Por defecto:          
+                string prepbdatos = "RS";
+                EnviarOrdenEsperarRespuesta(prepbdatos);
+                serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_ConfirmBDReceived);
+                //serialPortMain.Close();
+
+        }
 
         private void buttonPonerLimites_Click(object sender, EventArgs e)
         {
@@ -431,16 +426,52 @@ namespace SerialControlAMCMB96
             labelLimSupValue.Text = limsup.ToString();
         }
 
+        void serialPortMain_ConfirmBDReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            //Esto no hace nada, problemas con el envío del Banco de Datos.
+        }
+
         void serialPortMain_BuffAMCReceived(object sender, SerialDataReceivedEventArgs e)
         
         {
             int numdatosEntrada;
             numdatosEntrada = serialPortMain.BytesToRead;
             MessageBox.Show("Tengo para leer estos datos: "+ numdatosEntrada);
-            Byte[] datoBuffAMC = new Byte[numdatosEntrada];
+            Byte[] datoBuffAMCReal = new Byte[numdatosEntrada];
+            serialPortMain.Read(datoBuffAMCReal, 0, numdatosEntrada);
+            string respuestaBuffAMCReal = System.Text.Encoding.UTF8.GetString(datoBuffAMCReal);
+            MessageBox.Show("Toma tus datos:" + respuestaBuffAMCReal);
+            Byte[] datoBuffAMC = new Byte[1540];
+            long[] datoEspecAMC = new long[512];
             serialPortMain.Read(datoBuffAMC, 0, numdatosEntrada);
-            string respuestaBuff = System.Text.Encoding.UTF8.GetString(datoBuffAMC);
-            MessageBox.Show("Toma tus datos:" + respuestaBuff);
+            int i = 0;
+            int j = 0;
+            Array.Clear(datoEspecAMC, 0, datoEspecAMC.Length);
+            for (i = 1, j = 0; i < (512 * 3); j++, i += 3)
+            {
+                long dato1n = Int64.Parse(datoBuffAMC[i].ToString(), NumberStyles.HexNumber);
+                long dato2n = Int64.Parse(datoBuffAMC[i + 1].ToString(), NumberStyles.HexNumber);
+                long dato3n = Int64.Parse(datoBuffAMC[i + 2].ToString(), NumberStyles.HexNumber);
+                datoEspecAMC[j] = dato1n + 256 * dato2n + 65536 * dato3n;
+                dato1n = 0;
+                dato2n = 0;
+                dato3n = 0;
+            }
+            string respuestaBuffAMC = BitConverter.ToString(datoBuffAMC).Replace("-", " ");
+            string arrayLong = String.Join(",", datoEspecAMC.Select(p => p.ToString()).ToArray());
+            //MessageBox.Show("Toma tus datos:" + respuestaBuff);
+            //MessageBox.Show("Vector de datos:" + arrayLong);
+            string archivoAMCdraw = "currentAMC_Dev" + amcID.ToString() + ".data";
+            StreamWriter espeamc = new System.IO.StreamWriter(archivoAMCdraw);
+            for (i = 1; i < datoEspecAMC.Length; i++)
+            {
+                espeamc.WriteLine(datoEspecAMC[i].ToString());
+            }
+            espeamc.Close();
+            serialPortMain.DataReceived -= new SerialDataReceivedEventHandler(serialPortMain_BuffAMCReceived);
+            //serialPortMain.Close();
+            CreateGraphAMC(zedGraphControlMain);
+            ActualiceGraficoAMC();
         }
 
         public void serialPortMain_BuffAAPReceived(object sender, SerialDataReceivedEventArgs e)
@@ -496,19 +527,22 @@ namespace SerialControlAMCMB96
                                     ClientRectangle.Height - 100);
         }
 
+        private void ActualiceGraficoAMC()
+        {
+            this.Invoke(new EventHandler(DisplayAMCGraph));
+        }
+
+        private void DisplayAMCGraph(object sender, EventArgs e)
+        {
+            zedGraphControlMain.Location = new Point(227, 44);
+            // Leave a small margin around the outside of the control
+            zedGraphControlMain.Size = new Size(ClientRectangle.Width - 250,
+                                    ClientRectangle.Height - 100);
+        }
+
         private void buttonLeerEspecAMC_Click(object sender, EventArgs e)
         {
             instanciarPuertoSerial();
-            //CreateGraph(zedGraphControlMain);
-            //SetSize();
-            /*while (checkBoxRefreshAMC.Checked == true)
-            {
-                refreshTimer.Interval = (double)1000 * (double)numericUpDownAMCRate.Value;
-                refreshTimer.Start();
-                refreshTimer.AutoReset = true; 
-                refreshTimer.Elapsed += new ElapsedEventHandler(refreshTimer_Elapsed);
-            }
-             */
         }
 
         private void refreshTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -599,6 +633,64 @@ namespace SerialControlAMCMB96
             graphMain.AxisChange();
         }
 
+        private void CreateGraphAMC(ZedGraphControl graphMainAMC)
+        {
+            // get a reference to the GraphPane
+            GraphPane PaneAMC = graphMainAMC.GraphPane;
+            // Titulos y ejes
+            PaneAMC.Title.Text = "Espectro Mossbauer en adquisición";
+            //PaneAAP.Title.FontSpec.Family = 
+            PaneAMC.XAxis.Title.Text = "Número de Canal";
+            PaneAMC.YAxis.Title.Text = "Cuentas de Canal";
+            PaneAMC.XAxis.MajorGrid.IsVisible = true;
+            PaneAMC.YAxis.MajorGrid.IsVisible = true;
+            PaneAMC.XAxis.MajorGrid.Color = Color.DarkGray;
+            PaneAMC.YAxis.MajorGrid.Color = Color.DarkGray;
+            PaneAMC.XAxis.MinorGrid.IsVisible = true;
+            PaneAMC.YAxis.MinorGrid.IsVisible = true;
+            PaneAMC.XAxis.MinorGrid.Color = Color.LightGray;
+            PaneAMC.YAxis.MinorGrid.Color = Color.LightGray;
+            PaneAMC.Legend.Position = ZedGraph.LegendPos.Bottom;
+            PaneAMC.XAxis.Scale.MaxGrace = 0.01;
+            PaneAMC.XAxis.Scale.MinGrace = 0.01;
+            PaneAMC.YAxis.Scale.MaxGrace = 0.05;
+            PaneAMC.YAxis.Scale.MinGrace = 0.05;
+            int x, y1;
+            int i = 1;
+            string cuenta;
+            string archivoAMCdraw = "currentAMC_Dev" + amcID.ToString() + ".data";
+            string amcplotfile_current = archivoAMCdraw + "plot";
+            File.Copy(archivoAMCdraw, amcplotfile_current, true);
+            StreamReader archivoActualAMC = new StreamReader(amcplotfile_current);
+            PointPairList list1 = new PointPairList();
+
+            while ((cuenta = archivoActualAMC.ReadLine()) != null)
+            {
+                x = i;
+                y1 = int.Parse(cuenta);
+                list1.Add(x, y1);
+                y1++;
+                i++;
+            }
+
+            archivoActualAMC.Close();
+            // Agregar un handler para cuando se detecte que el archivo cambia, y asi ejecutar de nuevo 
+            // la generacion de la gráfica.
+            // Generar la curva
+            PaneAMC.CurveList.Clear();
+
+            LineItem myCurve = PaneAMC.AddCurve("Espectro", list1, Color.DarkBlue, SymbolType.Diamond);
+
+            myCurve.Symbol.Size = 3.0F;
+            myCurve.Symbol.Fill = new Fill(Color.DarkRed);
+            myCurve.Line.IsVisible = true;
+
+            // Tell ZedGraph to refigure the
+            // axes since the data have changed
+            graphMainAMC.AxisChange();
+        }
+
+
         private void FormMain_Load(object sender, EventArgs e)
         {
             InicializarPuerto(serialPortMain);
@@ -619,8 +711,21 @@ namespace SerialControlAMCMB96
             EnviarOrden(desactivarMedAAP);
         }
 
-        
+        private void radioButtonControlIntAct_CheckedChanged(object sender, EventArgs e)
+        {
+            {
+                string activarMedAMC = "CMA";
+                EnviarOrden(activarMedAMC);
+            }
+        }
 
+        private void radioButtonControlIntDesact_CheckedChanged(object sender, EventArgs e)
+        {
+            {
+                string desactivarMedAMC = "CMD";
+                EnviarOrden(desactivarMedAMC);
+            }
+        }
         
     }
 }
