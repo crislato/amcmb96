@@ -33,6 +33,9 @@ namespace SerialControlAMCMB96
 
         
         public void InicializarPuerto(System.IO.Ports.SerialPort Puerto)
+        /*Variables de configuración del puerto, guardadas en principio por el programa.
+          DTR y RTS deben ir a Enable TRUE (Control por hardware)       
+        */
         {
             if (Puerto.IsOpen) serialPortMain.Close();
             Puerto.PortName = Properties.Settings.Default.COMPortName;
@@ -60,6 +63,9 @@ namespace SerialControlAMCMB96
         }
 
         public void EnviarOrden(string comando)
+        //Envío de un comando. Cadena de inicialización empieza con "[". 
+        //El fin de comando se considera con el terminador \r. El \n es agregado por el SO.
+        //En la rutina se inicializa el puerto, se envía el iniciador, la cadena argumento y el terminador.
         {
             InicializarPuerto(serialPortMain);
             string inicomando = "[";
@@ -73,6 +79,11 @@ namespace SerialControlAMCMB96
         //Fin de rutina EnviarOrden(comando);
 
         public void EnviarOrdenEsperarRespuesta(string comando)
+        //Envío de un comando. Cadena de inicialización empieza con "[". 
+        //El fin de comando se considera con el terminador \r. El \n es agregado por el SO.
+        //En la rutina se inicializa el puerto, se envía el iniciador, la cadena argumento y el terminador.
+        //En esta rutina se espera respuesta por parte del AMCMB96, por eso no se cierra el puerto.
+        //Si el puerto no existe se presenta una excepción
         {
             InicializarPuerto(serialPortMain);
             string inicomando = "[";
@@ -84,6 +95,8 @@ namespace SerialControlAMCMB96
         }
 
         public void EnviarOrdenByteEsperarRespuesta(byte[] bytecomando)
+        //Rutina para enviar comandos en formato byte (requisición de espectros)
+        //El programa espera respuesta por parte del AMCMB96
         {
             InicializarPuerto(serialPortMain);
             string inicomando = "[";
@@ -95,6 +108,8 @@ namespace SerialControlAMCMB96
         }
 
         public void EnviarOrdenByte(byte[] bytecomando)
+        //Rutina para enviar comandos en formato byte (requisición de espectros)
+        //El programa NO espera respuesta por parte del AMCMB96
         {
             InicializarPuerto(serialPortMain);
             string inicomando = "[";
@@ -118,6 +133,14 @@ namespace SerialControlAMCMB96
         }
 
         private void menuChequeoID_Click(object sender, EventArgs e)
+        /*
+         * Cuando se da click en el menú de chequear el ID del espectrómetro activo se procede
+         * a enviar el comando "?", el cual debe esperar como respuesta el ID.
+         * El handler espera la respuesta y crea los archivos de datos necesarios para la adquisición
+         * de la información del espectrómetro y el guardado de sus parámetros de funcionamiento.
+         * El Handler se activa al recibir el ID y luego es invocado para actualizar el mismo ID en 
+         * el hilo correspondiente a las rutinas DisplayAMCid() y ActualiceID()
+         */
         {
             if (menuChequeoID.Checked == false)
             {
@@ -140,6 +163,13 @@ namespace SerialControlAMCMB96
         }
         
         void serialPortMain_IDReceived(object sender, SerialDataReceivedEventArgs e)
+        /*
+         * Este es el handler que se activa al recibir el ID del espectrómetro. 
+         * El dato es leído por la rutina y de inmediato se invoca el manejador del handler
+         * contenido en ActualiceID(), el cual a su vez invoca a DisplayAMCid para actualizar 
+         * el valor del ID que es visible al usuario.
+         * El handler se desuscribe del evento de datos de puerto serial al terminar su ejecución.
+         */
         {
             int numdatosEntrada;
             numdatosEntrada = serialPortMain.BytesToRead;
@@ -196,6 +226,7 @@ namespace SerialControlAMCMB96
 
         
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        //Pregunta de confirmación para salir del programa.
         {
             if (MessageBox.Show("Desea salir del programa?", "Salir", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
@@ -204,6 +235,7 @@ namespace SerialControlAMCMB96
         }
 
         private void MenuCOM_Click(object sender, EventArgs e)
+            //Opciones de comunicación. Se despliega el formulario de opciones.
         {
             serialPortMain.Close();
             FormCOMOptions opcionesComm = new FormCOMOptions();
@@ -211,6 +243,12 @@ namespace SerialControlAMCMB96
         }
 
         private void MenuModoAMC_Click(object sender, EventArgs e)
+            /*Rutina que inicia el despliegue gráfico del modo AMC.
+             * Cuando se pone check en este ítem, se deshabilitan las opciones de modo AAP
+             * y se hacen visibles los paneles y gráficos del modo AMC.
+             * El modo gráfico más importante es el correspondiente a ZedGraph,
+             * invocado en CreateGraphAMC() y ActualiceGraficoAMC()
+             */
         {
             MenuModoAMC.Checked = !MenuModoAMC.Checked;
             if (MenuModoAMC.Checked == true)
@@ -219,9 +257,9 @@ namespace SerialControlAMCMB96
                 MenuModoAAP.Enabled = false;
                 panelModoAMC.Enabled = true;
                 panelModoAMC.Visible = true;
-                CreateGraphAAP(zedGraphControlMain);
-                ActualiceGraficoAAP();
-                zedGraphControlMain.Show();
+                CreateGraphAMC(zedGraphControlMainAMC);
+                ActualiceGraficoAMC();
+                //zedGraphControlMainAMC.Show();
                 buttonActivarAMC.Enabled = false;
             }
             if (MenuModoAMC.Checked == false)
@@ -229,12 +267,18 @@ namespace SerialControlAMCMB96
                 MenuModoAAP.Enabled = true;
                 panelModoAMC.Enabled = false;
                 panelModoAMC.Visible = false;
-                buttonActivarAMC.Enabled = true;
-                zedGraphControlMain.Hide();
+                //buttonActivarAMC.Enabled = true;
+                zedGraphControlMainAMC.Hide();
             }
         }
 
         private void MenuModoAAP_Click(object sender, EventArgs e)
+        /*Rutina que inicia el despliegue gráfico del modo AAC.
+         * Cuando se pone check en este ítem, se deshabilitan las opciones de modo AMC
+         * y se hacen visibles los paneles y gráficos del modo AAP.
+         * El modo gráfico más importante es el correspondiente a ZedGraph,
+         * invocado en CreateGraphAMC() y ActualiceGraficoAMC()
+         */
         {
             MenuModoAAP.Checked = !MenuModoAAP.Checked;
             if (MenuModoAAP.Checked == true)
@@ -252,6 +296,7 @@ namespace SerialControlAMCMB96
                 panelModoAAP.Enabled = false;
                 panelModoAAP.Visible = false;
                 buttonActivarAAP.Enabled = true;
+                zedGraphControlMain.Hide();
             }
         }
 
@@ -301,6 +346,9 @@ namespace SerialControlAMCMB96
             buttonActivarAAP.Enabled = false;
         }
 
+        //Comando de control de interrupción, rutina que en este momento no hace nada
+        //debe ponerse un botón más amigable y/o eliminar para poner una forma más entendible
+        //de pausa y reanudación de las mediciones 
         private void buttonEnviarComandoIntAAP_Click(object sender, EventArgs e)
         {
             if (radioButtonControlIntAAPAct.Checked == true)
@@ -312,6 +360,7 @@ namespace SerialControlAMCMB96
             }
         }
 
+        //Limpieza de buffer. Esta rutina debe usarse con cuidado, escribe ceros en el banco de memoria.
         private void buttonLimpiarBancoAMC_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("La limpieza del banco de datos eliminará cualquier dato no guardado"
@@ -325,6 +374,7 @@ namespace SerialControlAMCMB96
             else return;
         }
 
+        //Limpieza de buffer. Esta rutina debe usarse con cuidado, escribe ceros en el banco de memoria.
         private void buttonLimpiarBancoAAP_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("La limpieza del banco de datos eliminará cualquier dato no guardado"
@@ -339,6 +389,14 @@ namespace SerialControlAMCMB96
         }
 
         public void instanciarPuertoSerial()
+            /*
+             * Si el menú de un modo está activo, se envía la orden para recibir el espectro
+             * del respectivo modo. Los modos son excluyentes así que la rutina es segura.
+             * Se envía la orden, se espera el buffer y con el evento de recepción de datos
+             * se invocan los Handlers para procesar los buffers y escribirlos en los respectivos 
+             * archivos.
+             * Por el motivo anterior se declaran aquí los nombres de los archivos.
+             */
         {
             string archivoAMC = "currentAMC_Dev" + amcID.ToString() + ".data";
             string archivoAAP = "currentAAP_Dev" + amcID.ToString() + ".data";
@@ -348,6 +406,8 @@ namespace SerialControlAMCMB96
                 byte[] buflargo = new byte[11] { 0x45, 0x4D, 0x30, 0x30, 0x30, 0x30, 0x30, 0x31, 0x35, 0x33, 0x37 };
                 EnviarOrdenByteEsperarRespuesta(buflargo);
                 serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_BuffAMCReceived);
+                //Envía [EM000001537 (1536/3 = 512 = N, y 3N + 1 = 1537
+                //El handler serialPortMain_BuffAMCReceived maneja el retorno de los datos del espectro.
                 //serialPortMain.Close();
                 
             }
@@ -356,6 +416,8 @@ namespace SerialControlAMCMB96
                 string bufaap = "EP";
                 EnviarOrdenEsperarRespuesta(bufaap);
                 serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_BuffAAPReceived);
+                //envia [EP (envío único del modo PHA/AAP 
+                //El handler serialPortMain_BuffAAPReceived maneja el retorno de los datos PHA/AAP. 
                 //serialPortMain.Close();
                 
             }
@@ -369,6 +431,9 @@ namespace SerialControlAMCMB96
                 string prepbdatos = "RS";
                 EnviarOrdenEsperarRespuesta(prepbdatos);
                 serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_ConfirmBDReceived);
+            //Recepción del banco de datos. 
+            //Por ahora, se espera confirmación del banco y se pasan los datos recibidos por evento
+            //hacia el handler serialPortMain_ConfirmBDReceived
                 //serialPortMain.Close();
 
         }
@@ -378,6 +443,7 @@ namespace SerialControlAMCMB96
             byte liminferior = (byte)numericUpDownLimInf.Value;
             byte limsuperior = (byte)numericUpDownLimSup.Value;
             byte[] comventana = new byte[6] { 0x56, 0x52, 0x30, 0x30, liminferior, limsuperior};
+            //Envía [VR00XY (X = valor byte del límite inferior, Y = valor byte límite superior
             InicializarPuerto(serialPortMain);
             string inicomando = "[";
             serialPortMain.Write(inicomando);
@@ -393,6 +459,8 @@ namespace SerialControlAMCMB96
             string verventana = "VE";
             EnviarOrdenEsperarRespuesta(verventana);
             serialPortMain.DataReceived +=new SerialDataReceivedEventHandler(serialPortMain_LimsReceived);
+            //Envía [VE y espera la respuesta. El flujo de datos de respuesta es manejado por 
+            //el handler serialPortMain_LimsReceived, que invoca una rutina para escribir los lims en la GUI.
                         
         }
 
@@ -413,6 +481,7 @@ namespace SerialControlAMCMB96
             limsup = BitConverter.ToInt16(liminfbyte, 0);
             ActualiceLimites();
             serialPortMain.DataReceived -=new SerialDataReceivedEventHandler(serialPortMain_LimsReceived);
+            //Desuscripción al hilo de eventos.
         }
 
         private void ActualiceLimites()
@@ -424,11 +493,14 @@ namespace SerialControlAMCMB96
         {
             labelLimInfValue.Text = liminf.ToString();
             labelLimSupValue.Text = limsup.ToString();
+            //este handler es invocado por ActualiceLimites(), y es el que modifica los valores en la GUI
         }
 
         void serialPortMain_ConfirmBDReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //Esto no hace nada, problemas con el envío del Banco de Datos.
+            //15 Febrero, esta es la rutina que se tiene que terminar para dar por finalizada
+            //la programación de todo.
         }
 
         void serialPortMain_BuffAMCReceived(object sender, SerialDataReceivedEventArgs e)
@@ -470,10 +542,20 @@ namespace SerialControlAMCMB96
             espeamc.Close();
             serialPortMain.DataReceived -= new SerialDataReceivedEventHandler(serialPortMain_BuffAMCReceived);
             //serialPortMain.Close();
-            CreateGraphAMC(zedGraphControlMain);
+            CreateGraphAMC(zedGraphControlMainAMC);
             ActualiceGraficoAMC();
         }
 
+        /* Esta rutina procesa el evento de recepción de datos del modo PHA/AAP para luego invocar el 
+         * modo gráfico.
+         * Primero se recibe el buffer, se genera un vector de tipo long, 256 componentes. 
+         * Se hace un bucle doble hasta el final del vector de datos original proveniente del AMCMB96,
+         * que tiene 770 bytes (256*3 de datos + la confirmación "!"). De acuerdo con esta operación 
+         * se genera el vector de pulsos del buffer AAP.
+         * Se escriben los datos en el archivo del buffer, se invoca la desuscripción al evento y se 
+         * llama la ejecución del despliegue de la gráfica del espectro.
+         * 
+         */ 
         public void serialPortMain_BuffAAPReceived(object sender, SerialDataReceivedEventArgs e)
         {
             System.Threading.Thread.Sleep(6000);
@@ -514,11 +596,13 @@ namespace SerialControlAMCMB96
             
         }
 
+        //Como es una actualización del componente gráfico, debe invocarse un EventHandler.
         private void ActualiceGraficoAAP()
         {
             this.Invoke(new EventHandler(DisplayAAPGraph));
         }
 
+        //Este handler es invocado por ActualiceGraficoAAP.
         private void DisplayAAPGraph(object sender, EventArgs e)
         {
             zedGraphControlMain.Location = new Point(227, 44);
@@ -527,16 +611,18 @@ namespace SerialControlAMCMB96
                                     ClientRectangle.Height - 100);
         }
 
+        //Como es una actualización del componente gráfico, debe invocarse un EventHandler.
         private void ActualiceGraficoAMC()
         {
             this.Invoke(new EventHandler(DisplayAMCGraph));
         }
 
+        //Handler idéntico al de PHA/AAP, pero para AMC.
         private void DisplayAMCGraph(object sender, EventArgs e)
         {
-            zedGraphControlMain.Location = new Point(227, 44);
+            zedGraphControlMainAMC.Location = new Point(227, 44);
             // Leave a small margin around the outside of the control
-            zedGraphControlMain.Size = new Size(ClientRectangle.Width - 250,
+            zedGraphControlMainAMC.Size = new Size(ClientRectangle.Width - 250,
                                     ClientRectangle.Height - 100);
         }
 
@@ -726,6 +812,7 @@ namespace SerialControlAMCMB96
                 EnviarOrden(desactivarMedAMC);
             }
         }
+
         
     }
 }

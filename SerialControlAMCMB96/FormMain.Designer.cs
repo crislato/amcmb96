@@ -48,6 +48,17 @@
             this.acercaDeMossCommToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelModoAMC = new System.Windows.Forms.Panel();
+            this.panelParamAMC = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.buttonLimpiarBancoAMC = new System.Windows.Forms.Button();
             this.labelseconds = new System.Windows.Forms.Label();
             this.numericUpDownAMCRate = new System.Windows.Forms.NumericUpDown();
@@ -59,6 +70,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonActivarAMC = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxParamAMC = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButtonControlIntAct = new System.Windows.Forms.RadioButton();
             this.radioButtonControlIntDesact = new System.Windows.Forms.RadioButton();
@@ -91,8 +103,10 @@
             this.zedGraphControlMain = new ZedGraph.ZedGraphControl();
             this.labelAMCActivo = new System.Windows.Forms.Label();
             this.labelNumAMC = new System.Windows.Forms.Label();
+            this.zedGraphControlMainAMC = new ZedGraph.ZedGraphControl();
             this.menuStrip1.SuspendLayout();
             this.panelModoAMC.SuspendLayout();
+            this.panelParamAMC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMCRate)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelModoAAP.SuspendLayout();
@@ -248,6 +262,7 @@
             // 
             this.panelModoAMC.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panelModoAMC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelModoAMC.Controls.Add(this.panelParamAMC);
             this.panelModoAMC.Controls.Add(this.buttonLimpiarBancoAMC);
             this.panelModoAMC.Controls.Add(this.labelseconds);
             this.panelModoAMC.Controls.Add(this.numericUpDownAMCRate);
@@ -264,6 +279,114 @@
             this.panelModoAMC.Size = new System.Drawing.Size(221, 686);
             this.panelModoAMC.TabIndex = 2;
             this.panelModoAMC.Visible = false;
+            // 
+            // panelParamAMC
+            // 
+            this.panelParamAMC.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panelParamAMC.Controls.Add(this.label16);
+            this.panelParamAMC.Controls.Add(this.label15);
+            this.panelParamAMC.Controls.Add(this.label14);
+            this.panelParamAMC.Controls.Add(this.label13);
+            this.panelParamAMC.Controls.Add(this.label12);
+            this.panelParamAMC.Controls.Add(this.label11);
+            this.panelParamAMC.Controls.Add(this.label10);
+            this.panelParamAMC.Controls.Add(this.label9);
+            this.panelParamAMC.Controls.Add(this.label8);
+            this.panelParamAMC.Controls.Add(this.label6);
+            this.panelParamAMC.Location = new System.Drawing.Point(3, 411);
+            this.panelParamAMC.Name = "panelParamAMC";
+            this.panelParamAMC.Size = new System.Drawing.Size(213, 262);
+            this.panelParamAMC.TabIndex = 15;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(11, 221);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(86, 13);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "Modo de manejo";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(11, 199);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(60, 13);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "Resolución";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(11, 177);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(98, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Signo de velocidad";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(11, 155);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(92, 13);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "Velocidad máxima";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(11, 133);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(70, 13);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "# de Barridos";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(11, 112);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Fin de Canal";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(11, 90);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(88, 13);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Avance de canal";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(11, 68);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(77, 13);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Tiempo muerto";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(11, 46);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(110, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Frecuencia de barrido";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(11, 4);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(155, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Parámetros de manejo del AMC";
             // 
             // buttonLimpiarBancoAMC
             // 
@@ -373,6 +496,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.checkBoxParamAMC);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.radioButtonControlIntAct);
             this.panel1.Controls.Add(this.radioButtonControlIntDesact);
@@ -380,6 +504,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(220, 120);
             this.panel1.TabIndex = 9;
+            // 
+            // checkBoxParamAMC
+            // 
+            this.checkBoxParamAMC.AutoSize = true;
+            this.checkBoxParamAMC.Location = new System.Drawing.Point(13, 87);
+            this.checkBoxParamAMC.Name = "checkBoxParamAMC";
+            this.checkBoxParamAMC.Size = new System.Drawing.Size(157, 17);
+            this.checkBoxParamAMC.TabIndex = 7;
+            this.checkBoxParamAMC.Text = "Ver parámetros de medición";
+            this.checkBoxParamAMC.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -403,7 +537,6 @@
             this.radioButtonControlIntAct.TabStop = true;
             this.radioButtonControlIntAct.Text = "Activado";
             this.radioButtonControlIntAct.UseVisualStyleBackColor = true;
-            this.radioButtonControlIntAct.CheckedChanged += new System.EventHandler(this.radioButtonControlIntAct_CheckedChanged_1);
             // 
             // radioButtonControlIntDesact
             // 
@@ -749,11 +882,26 @@
             this.labelNumAMC.TabIndex = 6;
             this.labelNumAMC.Text = "NO DETECTADO";
             // 
+            // zedGraphControlMainAMC
+            // 
+            this.zedGraphControlMainAMC.Location = new System.Drawing.Point(227, 44);
+            this.zedGraphControlMainAMC.Name = "zedGraphControlMainAMC";
+            this.zedGraphControlMainAMC.ScrollGrace = 0D;
+            this.zedGraphControlMainAMC.ScrollMaxX = 0D;
+            this.zedGraphControlMainAMC.ScrollMaxY = 0D;
+            this.zedGraphControlMainAMC.ScrollMaxY2 = 0D;
+            this.zedGraphControlMainAMC.ScrollMinX = 0D;
+            this.zedGraphControlMainAMC.ScrollMinY = 0D;
+            this.zedGraphControlMainAMC.ScrollMinY2 = 0D;
+            this.zedGraphControlMainAMC.Size = new System.Drawing.Size(781, 686);
+            this.zedGraphControlMainAMC.TabIndex = 7;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.Controls.Add(this.zedGraphControlMainAMC);
             this.Controls.Add(this.labelNumAMC);
             this.Controls.Add(this.labelAMCActivo);
             this.Controls.Add(this.panelModoAAP);
@@ -770,6 +918,8 @@
             this.menuStrip1.PerformLayout();
             this.panelModoAMC.ResumeLayout(false);
             this.panelModoAMC.PerformLayout();
+            this.panelParamAMC.ResumeLayout(false);
+            this.panelParamAMC.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMCRate)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -851,5 +1001,18 @@
         private System.Windows.Forms.NumericUpDown numericUpDownLimInf;
         private System.Windows.Forms.Label labelLims2;
         private System.Windows.Forms.Label labelLims1;
+        private System.Windows.Forms.Panel panelParamAMC;
+        private System.Windows.Forms.CheckBox checkBoxParamAMC;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private ZedGraph.ZedGraphControl zedGraphControlMainAMC;
     }
 }
