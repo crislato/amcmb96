@@ -68,3 +68,41 @@ D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\amcmb96\SerialControlAMCMB96\obj\x
 D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.csproj.GenerateResource.Cache
 D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
 D:\Dropbox\Dropbox\SerialControlAMCMB96_29Oct\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe.config
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.pdb
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\System.Configuration.dll
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.csprojResolveAssemblyReference.cache
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormCOMOptions.resources
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormMain.resources
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.Properties.Resources.resources
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.csproj.GenerateResource.Cache
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
+D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormParamAMC.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe.config
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.pdb
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\System.configuration.dll
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormParamAMC.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormCOMOptions.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormMain.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.Properties.Resources.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe.config
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.exe
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\SerialControlAMCMB96.pdb
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\bin\Debug\System.configuration.dll
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormParamAMC.resources
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormCOMOptions.resources
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.FormMain.resources
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.Properties.Resources.resources
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
+D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb

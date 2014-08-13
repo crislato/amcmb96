@@ -11,7 +11,8 @@
     <RootNamespace>SerialControlAMCMB96</RootNamespace>
     <AssemblyName>SerialControlAMCMB96</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -57,6 +58,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormParamAMC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormParamAMC.Designer.cs">
+      <DependentUpon>FormParamAMC.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCOMOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +78,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormParamAMC.resx">
+      <DependentUpon>FormParamAMC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCOMOptions.resx">
       <DependentUpon>FormCOMOptions.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,6 +95,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="App1.config" />

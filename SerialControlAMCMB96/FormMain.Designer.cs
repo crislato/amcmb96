@@ -41,6 +41,7 @@
             this.MenuHerramientas = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCOM = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuModoAMC = new System.Windows.Forms.ToolStripMenuItem();
+            this.parametrosAMCMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuModoAAP = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpciones = new System.Windows.Forms.ToolStripMenuItem();
             this.menuChequeoID = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,7 +101,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.radioButtonControlIntAAPAct = new System.Windows.Forms.RadioButton();
             this.radioButtonControlIntAAPDesact = new System.Windows.Forms.RadioButton();
-            this.zedGraphControlMain = new ZedGraph.ZedGraphControl();
+            this.graphMain = new ZedGraph.ZedGraphControl();
             this.labelAMCActivo = new System.Windows.Forms.Label();
             this.labelNumAMC = new System.Windows.Forms.Label();
             this.zedGraphControlMainAMC = new ZedGraph.ZedGraphControl();
@@ -141,49 +142,49 @@
             this.toolStripMenuItem1,
             this.salirToolStripMenuItem});
             this.MenuArchivo.Name = "MenuArchivo";
-            this.MenuArchivo.Size = new System.Drawing.Size(60, 20);
+            this.MenuArchivo.Size = new System.Drawing.Size(55, 20);
             this.MenuArchivo.Text = "&Archivo";
             // 
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.nuevoToolStripMenuItem.Text = "&Nuevo";
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.abrirToolStripMenuItem.Text = "&Abrir";
             // 
             // guardarToolStripMenuItem
             // 
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.guardarToolStripMenuItem.Text = "&Guardar";
             // 
             // guardarComoToolStripMenuItem
             // 
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.guardarComoToolStripMenuItem.Text = "G&uardar como...";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(156, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(161, 6);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.salirToolStripMenuItem.Text = "&Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // MenuEditar
             // 
             this.MenuEditar.Name = "MenuEditar";
-            this.MenuEditar.Size = new System.Drawing.Size(49, 20);
+            this.MenuEditar.Size = new System.Drawing.Size(47, 20);
             this.MenuEditar.Text = "&Editar";
             // 
             // MenuHerramientas
@@ -195,30 +196,39 @@
             this.MenuOpciones,
             this.menuChequeoID});
             this.MenuHerramientas.Name = "MenuHerramientas";
-            this.MenuHerramientas.Size = new System.Drawing.Size(90, 20);
+            this.MenuHerramientas.Size = new System.Drawing.Size(83, 20);
             this.MenuHerramientas.Text = "&Herramientas";
             // 
             // MenuCOM
             // 
             this.MenuCOM.Name = "MenuCOM";
             this.MenuCOM.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
-            this.MenuCOM.Size = new System.Drawing.Size(232, 22);
+            this.MenuCOM.Size = new System.Drawing.Size(226, 22);
             this.MenuCOM.Text = "Configuración COM";
             this.MenuCOM.Click += new System.EventHandler(this.MenuCOM_Click);
             // 
             // MenuModoAMC
             // 
+            this.MenuModoAMC.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.parametrosAMCMenuItem});
             this.MenuModoAMC.Name = "MenuModoAMC";
             this.MenuModoAMC.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F9)));
-            this.MenuModoAMC.Size = new System.Drawing.Size(232, 22);
+            this.MenuModoAMC.Size = new System.Drawing.Size(226, 22);
             this.MenuModoAMC.Text = "Modo AMC";
             this.MenuModoAMC.Click += new System.EventHandler(this.MenuModoAMC_Click);
+            // 
+            // parametrosAMCMenuItem
+            // 
+            this.parametrosAMCMenuItem.Name = "parametrosAMCMenuItem";
+            this.parametrosAMCMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.parametrosAMCMenuItem.Text = "Parámetros de Medición";
+            this.parametrosAMCMenuItem.Click += new System.EventHandler(this.parametrosAMCMenuItem_Click);
             // 
             // MenuModoAAP
             // 
             this.MenuModoAAP.Name = "MenuModoAAP";
             this.MenuModoAAP.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F10)));
-            this.MenuModoAAP.Size = new System.Drawing.Size(232, 22);
+            this.MenuModoAAP.Size = new System.Drawing.Size(226, 22);
             this.MenuModoAAP.Text = "Modo AAP";
             this.MenuModoAAP.Click += new System.EventHandler(this.MenuModoAAP_Click);
             // 
@@ -226,13 +236,13 @@
             // 
             this.MenuOpciones.Name = "MenuOpciones";
             this.MenuOpciones.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F12)));
-            this.MenuOpciones.Size = new System.Drawing.Size(232, 22);
+            this.MenuOpciones.Size = new System.Drawing.Size(226, 22);
             this.MenuOpciones.Text = "Opciones";
             // 
             // menuChequeoID
             // 
             this.menuChequeoID.Name = "menuChequeoID";
-            this.menuChequeoID.Size = new System.Drawing.Size(232, 22);
+            this.menuChequeoID.Size = new System.Drawing.Size(226, 22);
             this.menuChequeoID.Text = "Chequear ID";
             this.menuChequeoID.Click += new System.EventHandler(this.menuChequeoID_Click);
             // 
@@ -241,13 +251,13 @@
             this.MenuAbout.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.acercaDeMossCommToolStripMenuItem});
             this.MenuAbout.Name = "MenuAbout";
-            this.MenuAbout.Size = new System.Drawing.Size(80, 20);
+            this.MenuAbout.Size = new System.Drawing.Size(79, 20);
             this.MenuAbout.Text = "Acerca &de...";
             // 
             // acercaDeMossCommToolStripMenuItem
             // 
             this.acercaDeMossCommToolStripMenuItem.Name = "acercaDeMossCommToolStripMenuItem";
-            this.acercaDeMossCommToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.acercaDeMossCommToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.acercaDeMossCommToolStripMenuItem.Text = "Acerca de MossComm";
             // 
             // toolStrip1
@@ -850,19 +860,19 @@
             this.radioButtonControlIntAAPDesact.UseVisualStyleBackColor = true;
             this.radioButtonControlIntAAPDesact.CheckedChanged += new System.EventHandler(this.radioButtonControlIntAAPDesact_CheckedChanged);
             // 
-            // zedGraphControlMain
+            // graphMain
             // 
-            this.zedGraphControlMain.Location = new System.Drawing.Point(227, 44);
-            this.zedGraphControlMain.Name = "zedGraphControlMain";
-            this.zedGraphControlMain.ScrollGrace = 0D;
-            this.zedGraphControlMain.ScrollMaxX = 0D;
-            this.zedGraphControlMain.ScrollMaxY = 0D;
-            this.zedGraphControlMain.ScrollMaxY2 = 0D;
-            this.zedGraphControlMain.ScrollMinX = 0D;
-            this.zedGraphControlMain.ScrollMinY = 0D;
-            this.zedGraphControlMain.ScrollMinY2 = 0D;
-            this.zedGraphControlMain.Size = new System.Drawing.Size(781, 686);
-            this.zedGraphControlMain.TabIndex = 4;
+            this.graphMain.Location = new System.Drawing.Point(227, 44);
+            this.graphMain.Name = "graphMain";
+            this.graphMain.ScrollGrace = 0D;
+            this.graphMain.ScrollMaxX = 0D;
+            this.graphMain.ScrollMaxY = 0D;
+            this.graphMain.ScrollMaxY2 = 0D;
+            this.graphMain.ScrollMinX = 0D;
+            this.graphMain.ScrollMinY = 0D;
+            this.graphMain.ScrollMinY2 = 0D;
+            this.graphMain.Size = new System.Drawing.Size(781, 686);
+            this.graphMain.TabIndex = 4;
             // 
             // labelAMCActivo
             // 
@@ -895,6 +905,7 @@
             this.zedGraphControlMainAMC.ScrollMinY2 = 0D;
             this.zedGraphControlMainAMC.Size = new System.Drawing.Size(781, 686);
             this.zedGraphControlMainAMC.TabIndex = 7;
+            this.zedGraphControlMainAMC.Visible = false;
             // 
             // FormMain
             // 
@@ -908,7 +919,7 @@
             this.Controls.Add(this.panelModoAMC);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.zedGraphControlMain);
+            this.Controls.Add(this.graphMain);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "MossComm v1.0";
@@ -987,7 +998,7 @@
         private System.Windows.Forms.Button buttonActivarAAP;
         private System.Windows.Forms.Button buttonLimpiarBancoAMC;
         private System.Windows.Forms.Button buttonLimpiarBancoAAP;
-        private ZedGraph.ZedGraphControl zedGraphControlMain;
+        private ZedGraph.ZedGraphControl graphMain;
         private System.Windows.Forms.ToolStripMenuItem menuChequeoID;
         private System.Windows.Forms.Label labelAMCActivo;
         private System.Windows.Forms.Label labelNumAMC;
@@ -1014,5 +1025,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private ZedGraph.ZedGraphControl zedGraphControlMainAMC;
+        private System.Windows.Forms.ToolStripMenuItem parametrosAMCMenuItem;
     }
 }

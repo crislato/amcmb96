@@ -260,7 +260,29 @@ namespace SerialControlAMCMB96
                 CreateGraphAMC(zedGraphControlMainAMC);
                 ActualiceGraficoAMC();
                 //zedGraphControlMainAMC.Show();
-                buttonActivarAMC.Enabled = false;
+                buttonActivarAMC.Enabled = true;
+                buttonActivarAMC.Show();
+                Properties.Settings.Default.ModoManejo = 1;
+                Properties.Settings.Default.FrecuenciaBarrido = 10;
+                Properties.Settings.Default.TiempoMuerto = 20;
+                Properties.Settings.Default.Resolucion = 256;
+                Properties.Settings.Default.MaxVelocidad = 8;
+                Properties.Settings.Default.FactorEscala = 1;
+                Properties.Settings.Default.SignoVelocidad = 0;
+                Properties.Settings.Default.ModoAvance = Convert.ToChar("I");
+                MessageBox.Show("ATENCIÓN:"
+                + Environment.NewLine
+                + "Si no modifica los parámetros de trabajo, se usarán los siguientes:" 
+                + Environment.NewLine
+                + Environment.NewLine + "Modo de manejo:" + Properties.Settings.Default.ModoManejo.ToString()
+                + Environment.NewLine + "Frecuencia de barrido:" + Properties.Settings.Default.FrecuenciaBarrido.ToString() + " Hz"
+                + Environment.NewLine + "Resolución:" + Properties.Settings.Default.Resolucion.ToString() + " Canales"
+                + Environment.NewLine + "Factor de escala:" + Properties.Settings.Default.FactorEscala.ToString()
+                + Environment.NewLine + "Signo de velocidad:" + Properties.Settings.Default.SignoVelocidad.ToString()
+                + Environment.NewLine + "Modo de avance:" + Properties.Settings.Default.ModoAvance.ToString()
+                );
+                zedGraphControlMainAMC.Show();
+
             }
             if (MenuModoAMC.Checked == false)
             {
@@ -272,8 +294,369 @@ namespace SerialControlAMCMB96
             }
         }
 
+        public struct Parametros_AMC
+        {
+            public char num_identif;
+            public double frec_barrido;
+            public double tiempo_muerto;
+            public char avance_canal;
+            public char fin_canal;
+            public int barridos;
+            public double max_velocidad;
+            public int signo_velocidad;
+            public int resolucion;
+            public int modo_manejo; //1:Triangular; 2:DienteSierra; 3:Sinusoidal
+        }
+
+        public struct Variables_Manejo_AMC
+        {
+            public int modo;
+            public char avance;
+            public int longitud;
+            public int canales;
+            public int tiempo_muestreo;
+            public int mb_barridos;
+            public double numero_ti_muestreo;
+        }
+
+        public void InicieAMC()
+        {
+            double z, z1;
+            int i, i1, i2, j, k, n;
+            int maxresol_1 = 1024;
+            int maxresol_2 = 512;
+            int fact_vel = Properties.Settings.Default.FactorEscala;
+            int[] senal = new int[1024];
+            double[] senaldouble = new double[1024];
+            double frecu = 4915200;
+            double pi = 3.141592;
+            Parametros_AMC prms_amc;
+            prms_amc.modo_manejo = Properties.Settings.Default.ModoManejo;
+            prms_amc.frec_barrido = Properties.Settings.Default.FrecuenciaBarrido;
+            prms_amc.tiempo_muerto = Properties.Settings.Default.TiempoMuerto;
+            prms_amc.resolucion = Properties.Settings.Default.Resolucion;
+            prms_amc.max_velocidad = Properties.Settings.Default.MaxVelocidad;
+            prms_amc.signo_velocidad = Properties.Settings.Default.SignoVelocidad;
+            prms_amc.avance_canal = Properties.Settings.Default.ModoAvance;
+
+            Variables_Manejo_AMC vrmanejo = default(Variables_Manejo_AMC); //poner a default, sino aparece como unassigned
+            vrmanejo.avance = prms_amc.avance_canal;
+            switch (prms_amc.modo_manejo)
+            {
+                case 1:
+                    k = maxresol_1 / prms_amc.resolucion; //esto es el quotient res 256 => k=4; 512 => k=2, 1024 => k=1
+                    j = (maxresol_1 - (k * prms_amc.resolucion)) / 2; //esto es el quotient j (siempre es 0)
+                    vrmanejo.canales = 2 * prms_amc.resolucion;
+                    vrmanejo.longitud = 3 * vrmanejo.canales;
+                    senal = new int[1024];
+                    for (i = 0; i < prms_amc.resolucion; i++)
+                    {
+                        senal[i] = j;
+                        j += k; //256 => 0,4,8,12... 512 => 0,2,4,6,8... 1024 => 0,1,2,3,4....
+                    }
+                    fact_vel = Properties.Settings.Default.FactorEscala;
+                    switch (fact_vel)
+                    {
+                        case 1:
+                            j = 0;
+                            break;
+                        case 2:
+                            j = 256;
+                            break;
+                        case 4:
+                            j = 384;
+                            break;
+                        default:
+                            j = 0;
+                            break;
+                    }
+
+                    for (i = 0; i < prms_amc.resolucion; i++)
+                    {
+                        //Rampa dividida entre 4 para res 256=>0,1,2... res 512=>0,0.5,1,1.5... res 1024=>0,0.25,0.5,0.75...
+                        int xquot = senal[i] / fact_vel;
+                        //Para fact_vel = 1 Rampa es res 256=>0,1,2... res 512=>0,0.5,1,1.5... res 1024=>0,0.25,0.5,0.75...
+                        //Para fact_vel = 2 Rampa es res 256=>256,257,258... res 512=>256,256.5,257,257.5... res 1024=>256,256.25,256.5,256.75...
+                        //Para fact_vel = 4 Rampa es res 256=>384,385,386... res 512=>384,384.5,385,385.5... res 1024=>384,384.25,384.5,384.75...
+                        senal[i] = xquot + j;
+                        //simetria de la señal. senal[255] == senal[1], senal[254] == senal[2], senal[253] == senal[3]....
+                        senal[vrmanejo.canales - 1 - i] = senal[i];
+                    }
+                    z = frecu / (vrmanejo.canales * prms_amc.frec_barrido);
+                    vrmanejo.tiempo_muestreo = CalculaTiempos(z, vrmanejo, out n);
+                    vrmanejo.numero_ti_muestreo = n;
+                    if (vrmanejo.numero_ti_muestreo == 1) vrmanejo.modo = 1; //buffer corto
+                    else vrmanejo.modo = 2; //buffer largo
+                    break;
+                /////////CASO DIENTE DE SIERRA/////////
+                case 2:
+                    k = maxresol_1 / prms_amc.resolucion; //esto es el quotient
+                    j = (maxresol_1 - (k * prms_amc.resolucion)) / 2; //esto es el quotient j (siempre es 0)
+                    vrmanejo.canales = (int)(prms_amc.resolucion*(1 + prms_amc.tiempo_muerto/100));
+                    i1 = vrmanejo.canales - prms_amc.resolucion;
+                    vrmanejo.longitud = 3 * vrmanejo.canales;
+                    senal = new int[1024];
+                    for (i = 0; i < prms_amc.resolucion; i++)
+                    {
+                        senal[i] = j+(i*k); 
+                    }
+                    k = (prms_amc.resolucion - 1) * (k / (i1 + 1));
+                    for (i = 0; i < i1; i++)
+                    {
+                        senal[vrmanejo.canales - 1 - i]  = j + (k * i);
+                    }
+                    if (prms_amc.signo_velocidad == -1)
+                    {
+                        for (i = 0; i < vrmanejo.canales; i++)
+                        {
+                            senal[i] = maxresol_1 - 1 - senal[i];
+                        }
+                    }
+                    switch (fact_vel)
+                    {
+                        case 1:
+                            j = 0;
+                            break;
+                        case 2:
+                            j = 256;
+                            break;
+                        case 4:
+                            j = 384;
+                            break;
+                        default:
+                            j = 0;
+                            break;
+                    }
+                    for (i = 0; i < vrmanejo.canales; i++)
+                    {
+                        int xquot = senal[i] / fact_vel;
+                        senal[i] = xquot + j;
+                    }
+                    z = frecu / (vrmanejo.canales * prms_amc.frec_barrido);
+                    vrmanejo.tiempo_muestreo = CalculaTiempos(z, vrmanejo, out n);
+                    vrmanejo.numero_ti_muestreo = n;
+                    if (vrmanejo.numero_ti_muestreo == 1) vrmanejo.modo = 1; //buffer corto
+                    else vrmanejo.modo = 2; //buffer largo
+                    break;
+
+                    ///////////////CASO SINUSOIDAL////////////////
+                case 3:
+                    z1 = pi / prms_amc.resolucion;
+                    vrmanejo.canales = 2 * prms_amc.resolucion;
+                    i1 = vrmanejo.canales / 4;
+                    vrmanejo.longitud = 3 * vrmanejo.canales;
+                    for (i = 0; i < prms_amc.resolucion; i++)
+                    {
+                        senaldouble[i] = 511*(1.0 - Math.Cos(z1*(i+0.5))); 
+                    }
+                    MessageBox.Show("La señal es:" + string.Join(",", senaldouble));
+                    switch (fact_vel)
+                    {
+                        case 1:
+                            j = 0;
+                            break;
+                        case 2:
+                            j = 256;
+                            break;
+                        case 4:
+                            j = 384;
+                            break;
+                        default:
+                            j = 0;
+                            break;
+                    }
+                    for (i = 0; i < prms_amc.resolucion; i++)
+                    {
+                        double xquot = (double)senaldouble[i] / fact_vel;
+                        senaldouble[i] = xquot + j;
+                        senaldouble[vrmanejo.canales - 1 - i]  = senaldouble[i];
+                    }
+                    z = frecu / (vrmanejo.canales * prms_amc.frec_barrido);
+                    vrmanejo.tiempo_muestreo = CalculaTiempos(z, vrmanejo, out n);
+                    vrmanejo.numero_ti_muestreo = n;
+                    if (vrmanejo.numero_ti_muestreo == 1) vrmanejo.modo = 1; //buffer corto
+                    else vrmanejo.modo = 2; //buffer largo
+                    break;
+            }
+            MessageBox.Show("Voy a enviar los siguientes datos:"
+                + Environment.NewLine + vrmanejo.avance.ToString()
+                + Environment.NewLine + vrmanejo.longitud.ToString()
+                + Environment.NewLine + vrmanejo.canales.ToString()
+                + Environment.NewLine + vrmanejo.mb_barridos.ToString()
+                + Environment.NewLine + vrmanejo.tiempo_muestreo.ToString()
+                + Environment.NewLine + vrmanejo.numero_ti_muestreo.ToString()
+                );
+
+            EnviarDatosOperacionAMC(vrmanejo);
+            System.Threading.Thread.Sleep(1000);
+            if (prms_amc.modo_manejo == 1 || prms_amc.modo_manejo == 2)
+            {
+                EnviarSenal(vrmanejo, senal);
+            }
+            else EnviarSenalDouble(vrmanejo, senaldouble);
+
+            System.Threading.Thread.Sleep(5000);
+            string modo_oper = vrmanejo.modo.ToString();
+            string amcIniciar = modo_oper + "I";
+            //string amcIniciar = "1I";
+            MessageBox.Show("Comando enviado para iniciar: " + amcIniciar);
+            EnviarOrden(amcIniciar);
+            serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_ConfirmParamsReceived);
+            //Byte[] confirmacion = new Byte[1];
+            //serialPortMain.Read(confirmacion, 0, 1);
+            
+            
+        }
+
+        public void EnviarDatosOperacionAMC(Variables_Manejo_AMC manejo)
+        {
+            manejo.mb_barridos = 0;
+            byte[] avance = BitConverter.GetBytes(manejo.avance);
+            byte[] longi = BitConverter.GetBytes(Convert.ToInt16(manejo.longitud));
+            byte[] canales = BitConverter.GetBytes(Convert.ToInt16(manejo.canales));
+            byte[] barridos = BitConverter.GetBytes(Convert.ToInt16(manejo.mb_barridos));
+            byte[] tiempo_muestreo = BitConverter.GetBytes(Convert.ToInt16(manejo.tiempo_muestreo));
+            byte[] numero_ti_muestreo = BitConverter.GetBytes(Convert.ToInt16(manejo.numero_ti_muestreo)); 
+            //Estructura del comando = 0x44 (D), 0x00, 0x49 (I), 0x00, 0x00, 0x00 (3 campos de 1 byte a 0), 0x00, 0x00 (campo 2 bytes a 0), longitud (2 bytes), 
+            //canales (2 bytes), barridos (2 bytes), tiempo_muestreo (2 bytes / z), numero_ti_muestreo (2 bytes) 
+            //byte[] datos_oper_byte = new byte[18] { 0x44, 0x00, 0x49, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x02, 0x00, 0x00, 0xC0, 0x03, 0x01, 0x00 };
+            byte[] datos_oper_byte = new byte[18] { 0x44, 0x00, avance[0], 0x00, 0x00, 0x00, 0x00, 0x00, longi[0], longi[1], canales[0], canales[1], barridos[0], barridos[1], tiempo_muestreo[0], tiempo_muestreo[1], numero_ti_muestreo[0], numero_ti_muestreo[1] };
+            InicializarPuerto(serialPortMain);
+            string inicomando = "[";
+            serialPortMain.Write(inicomando);
+            for (int i = 0; i < datos_oper_byte.Length; i++)
+            {
+                byte[] chain = new byte[1] { datos_oper_byte[i] };
+                serialPortMain.Write(chain, 0, chain.Length);
+                System.Threading.Thread.Sleep(300);
+
+            }
+            string fincr = "\r";
+            serialPortMain.Write(fincr);
+            serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_ConfirmParamsReceived);
+        }
+
+        public void EnviarSenal(Variables_Manejo_AMC manejo, int[] senal)
+        {
+            int i, j;
+            int xquot, xrem;
+            int[] senalalta = new int[1024];
+            int[] senalbaja = new int[1024];
+            int chks = 0;
+            string alta, baja;
+            byte[] altabyte, bajabyte;
+
+            for (i = 0; i < manejo.canales; i++)
+            {
+                xquot = Math.DivRem(senal[i], 4, out xrem);
+                senalalta[i] = xquot;
+                chks += senalalta[i];
+                senalbaja[i] = xrem;
+                chks += senalbaja[i];
+                //Ver operación de CHKS (sumas de chequeo, bitwise comparison chks = ~chks +1)
+            }
+            chks += chks;
+            chks = (~chks) + 1;
+
+            instanciarRecepcionBDatos(manejo);
+            System.Threading.Thread.Sleep(2000);
+            //InicializarPuerto(serialPortMain);
+            
+            for (i = 0; i < manejo.canales; i++)
+            {
+                alta = senalalta[i].ToString();
+                baja = senalbaja[i].ToString();
+                altabyte = new byte[] { Convert.ToByte(senalalta[i]) };
+                bajabyte = new byte[] { Convert.ToByte(senalbaja[i]) };
+
+                serialPortMain.Write(altabyte, 0, 1);
+                serialPortMain.Write(bajabyte, 0 ,1);
+                 
+                
+            }
+            //MessageBox.Show("Escribí:" + string.Join(",", senalalta));
+            //MessageBox.Show("Escribí:" + string.Join(",", senalbaja));
+            //byte[] chksbyte = new byte[] { Convert.ToByte(chks)};
+            byte[] chkszero = new byte[1] { 0x00 };
+            serialPortMain.Write(chkszero,0,1);
+            //serialPortMain.Close();
+            //serialPortMain.ReadByte();
+        }
+
+        public void EnviarSenalDouble(Variables_Manejo_AMC manejo, double[] senaldouble)
+        {
+            int i, j;
+            int xquot;
+            double xrem;
+            int[] senalalta = new int[1024];
+            double[] senalbaja = new double[1024];
+            int chks = 0;
+            string alta, baja;
+            byte[] altabyte, bajabyte;
+
+            for (i = 0; i < manejo.canales; i++)
+            {
+                xquot = Convert.ToInt32(senaldouble[i]) / 4;
+                senalalta[i] = xquot;
+                chks += senalalta[i];
+                xrem = senaldouble[i] % 4;
+                senalbaja[i] = xrem;
+                chks += Convert.ToInt32(senalbaja[i]);
+                //Ver operación de CHKS (sumas de chequeo, bitwise comparison chks = ~chks +1)
+            }
+            //MessageBox.Show("La señal es:" + string.Join(",", senalalta));
+            //MessageBox.Show("Escribí:" + string.Join(",", senalbaja));
+            
+            chks += chks;
+            chks = (~chks) + 1;
+
+            instanciarRecepcionBDatos(manejo);
+            System.Threading.Thread.Sleep(2000);
+            //InicializarPuerto(serialPortMain);
+
+            for (i = 0; i < manejo.canales; i++)
+            {
+                alta = senalalta[i].ToString();
+                baja = senalbaja[i].ToString();
+                altabyte = new byte[] { Convert.ToByte(senalalta[i]) };
+                bajabyte = new byte[] { Convert.ToByte(senalbaja[i]) };
+
+                serialPortMain.Write(altabyte, 0, 1);
+                serialPortMain.Write(bajabyte, 0, 1);
+
+
+            }
+            //MessageBox.Show("Valor CHKS Final:" + chks.ToString());
+            byte[] chkszero = new byte[1] { 0x00 };
+            serialPortMain.Write(chkszero, 0, 1);
+            //serialPortMain.Close();
+            //serialPortMain.ReadByte();
+        }
+
+        public int CalculaTiempos( double zz, Variables_Manejo_AMC manejo, out int numerotimuestreo)
+        {
+            double origvalue = zz / (double)65536;
+            double intpart = Math.Floor(origvalue);
+            manejo.numero_ti_muestreo = 1 + intpart;
+            numerotimuestreo = (int)manejo.numero_ti_muestreo;
+            if ((zz / (double)manejo.numero_ti_muestreo) > 65536)
+            {
+        double origvalue2 = (zz / (double)manejo.numero_ti_muestreo) - 65536;
+                manejo.tiempo_muestreo = (int)Math.Floor(origvalue2);
+                //MessageBox.Show("Bucle 1 CalculaTiempo, tiempo_muestreo:" + manejo.tiempo_muestreo);
+                return manejo.tiempo_muestreo;
+            }
+            else
+            {
+                double origvalue2 = (zz / (double)manejo.numero_ti_muestreo); //10Hz => 960 /1 = 960
+                manejo.tiempo_muestreo = (int)Math.Floor(origvalue2);
+                //MessageBox.Show("Bucle 2 CalculaTiempo, tiempo_muestreo:" + manejo.tiempo_muestreo);
+                return manejo.tiempo_muestreo;
+            }
+        }
+
         private void MenuModoAAP_Click(object sender, EventArgs e)
-        /*Rutina que inicia el despliegue gráfico del modo AAC.
+        /*Rutina que inicia el despliegue gráfico del modo AAP.
          * Cuando se pone check en este ítem, se deshabilitan las opciones de modo AMC
          * y se hacen visibles los paneles y gráficos del modo AAP.
          * El modo gráfico más importante es el correspondiente a ZedGraph,
@@ -288,6 +671,9 @@ namespace SerialControlAMCMB96
                 panelModoAAP.Enabled = true;
                 panelModoAAP.Location = new Point(0, 44);
                 panelModoAAP.Visible = true;
+                CreateGraphAAP(graphMain);
+                ActualiceGraficoAAP();
+                graphMain.Show();
             }
 
             if (MenuModoAAP.Checked == false)
@@ -296,13 +682,26 @@ namespace SerialControlAMCMB96
                 panelModoAAP.Enabled = false;
                 panelModoAAP.Visible = false;
                 buttonActivarAAP.Enabled = true;
-                zedGraphControlMain.Hide();
+                graphMain.Hide();
             }
         }
 
         private void buttonActivarAMC_Click(object sender, EventArgs e)
         {
-            if (comboBoxAMCMode.SelectedIndex == 0 & radioButtonAMCInit.Checked == true)
+            if (radioButtonAMCInit.Checked == true)
+            {
+                string limbuf = "LM";
+                EnviarOrden(limbuf);
+                InicieAMC();
+                
+            }
+            if (radioButtonAMCContinue.Checked == true)
+            {
+                string amcCortoSeguir = "1G";
+                EnviarOrden(amcCortoSeguir);
+            }
+
+/*            if (comboBoxAMCMode.SelectedIndex == 0 & radioButtonAMCInit.Checked == true)
             {
                 string amcCortoIniciar = "1I";
                 string limbuf = "LM";
@@ -326,7 +725,8 @@ namespace SerialControlAMCMB96
                 string amcLargoSeguir = "2G";
                 EnviarOrden(amcLargoSeguir);
             }
-            buttonActivarAMC.Enabled = false;
+ */
+            buttonActivarAMC.Enabled = true;
         }
 
         private void buttonActivarAAP_Click(object sender, EventArgs e)
@@ -343,7 +743,7 @@ namespace SerialControlAMCMB96
                 string aapSeguir = "0G";
                 EnviarOrden(aapSeguir);
             }
-            buttonActivarAAP.Enabled = false;
+            buttonActivarAAP.Enabled = true;
         }
 
         //Comando de control de interrupción, rutina que en este momento no hace nada
@@ -403,12 +803,49 @@ namespace SerialControlAMCMB96
 
             if (MenuModoAMC.Checked == true)
             {
-                byte[] buflargo = new byte[11] { 0x45, 0x4D, 0x30, 0x30, 0x30, 0x30, 0x30, 0x31, 0x35, 0x33, 0x37 };
-                EnviarOrdenByteEsperarRespuesta(buflargo);
-                serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_BuffAMCReceived);
-                //Envía [EM000001537 (1536/3 = 512 = N, y 3N + 1 = 1537
+                InicializarPuerto(serialPortMain);
+                byte[] control_interrumpir = new byte[3] { 0x43, 0x4D, 0x41 };
+                string inicomando = "[";
+                serialPortMain.Write(inicomando);
+                for (int i = 0; i < control_interrumpir.Length; i++)
+                {
+                    byte[] chain = new byte[1] { control_interrumpir[i] };
+                    serialPortMain.Write(chain, 0, chain.Length);
+                    System.Threading.Thread.Sleep(300);
+
+                }
+                string fincr = "\r";
+                serialPortMain.Write(fincr);
+                byte[] bufamc = new byte[10] { 0x45, 0x4D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x06 };
+                //byte[] buflargo = new byte[11] { 0x45, 0x4D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x31, 0x35, 0x33, 0x37 };
+                serialPortMain.Write(inicomando);
+                
+                for (int i = 0; i < bufamc.Length; i++)
+                {
+                    byte[] chain = new byte[1] { bufamc[i] };
+                    serialPortMain.Write(chain, 0, chain.Length);
+                    System.Threading.Thread.Sleep(50);
+
+                }
+                serialPortMain.Write(fincr);
+                //Envía [EM000001537 (1536/3 = 512 = N, y 3N + 1 = 1537)
+                //Envía ( 0x45 (E), 0x4D (M), 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 (4 campos de 1 byte, uno de 2 bytes), 0x0601 (Longitud)
                 //El handler serialPortMain_BuffAMCReceived maneja el retorno de los datos del espectro.
                 //serialPortMain.Close();
+                
+                //EnviarOrdenByteEsperarRespuesta(buflargo);
+                serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_BuffAMCReceived);
+                //System.Threading.Thread.Sleep(1000);
+                //byte[] control_reanudar = new byte[3] { 0x43, 0x4D, 0x41 };
+                //serialPortMain.Write(inicomando);
+                //for (int i = 0; i < control_reanudar.Length; i++)
+                //{
+                //    byte[] chain = new byte[1] { control_reanudar[i] };
+                //    serialPortMain.Write(chain, 0, chain.Length);
+                //    System.Threading.Thread.Sleep(100);
+
+                //}
+                //serialPortMain.Write(fincr);
                 
             }
             if (MenuModoAAP.Checked == true)
@@ -416,7 +853,7 @@ namespace SerialControlAMCMB96
                 string bufaap = "EP";
                 EnviarOrdenEsperarRespuesta(bufaap);
                 serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_BuffAAPReceived);
-                //envia [EP (envío único del modo PHA/AAP 
+                //envia [EP (envío único del modo PHA/AAP) 
                 //El handler serialPortMain_BuffAAPReceived maneja el retorno de los datos PHA/AAP. 
                 //serialPortMain.Close();
                 
@@ -424,12 +861,25 @@ namespace SerialControlAMCMB96
         }
 
 
-        public void instanciarRecepcionBDatos()
+        public void instanciarRecepcionBDatos(Variables_Manejo_AMC manejo)
         {
-            //string unDefined = "BDatos_Dev" + amcID.ToString() + ".bdata";
-            //Por defecto:          
-                string prepbdatos = "RS";
-                EnviarOrdenEsperarRespuesta(prepbdatos);
+                int longitud = 2*manejo.canales + 1;
+                string longi = longitud.ToString();
+                string prepbdatos = "RS00000" + longi;
+                MessageBox.Show("Comando enviado recepcion señal datos:" + prepbdatos);
+                
+                byte[] datos_senal_byte = new byte[10] { 0x52, 0x53, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x04};
+                InicializarPuerto(serialPortMain);
+                string inicomando = "[";
+                serialPortMain.Write(inicomando);
+                for (int i = 0; i < datos_senal_byte.Length; i++)
+                {
+                    byte[] chain = new byte[1] { datos_senal_byte[i] };
+                    serialPortMain.Write(chain, 0, chain.Length);
+
+                }
+                string fincr = "\r";
+                serialPortMain.Write(fincr);
                 serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_ConfirmBDReceived);
             //Recepción del banco de datos. 
             //Por ahora, se espera confirmación del banco y se pasan los datos recibidos por evento
@@ -437,6 +887,15 @@ namespace SerialControlAMCMB96
                 //serialPortMain.Close();
 
         }
+
+        
+
+        private void parametrosAMCMenuItem_Click(object sender, EventArgs e)
+        {
+            FormParamAMC parametrosAMC = new FormParamAMC();
+            parametrosAMC.Show();
+        }
+
 
         private void buttonPonerLimites_Click(object sender, EventArgs e)
         {
@@ -496,54 +955,95 @@ namespace SerialControlAMCMB96
             //este handler es invocado por ActualiceLimites(), y es el que modifica los valores en la GUI
         }
 
+        void serialPortMain_ConfirmParamsReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            System.Threading.Thread.Sleep(1000);
+            int numdatosEntrada;
+            numdatosEntrada = serialPortMain.BytesToRead;
+
+            Byte[] datoOK = new Byte[numdatosEntrada];
+            serialPortMain.Read(datoOK, 0, numdatosEntrada);
+            string respuestaOK = System.Text.Encoding.UTF8.GetString(datoOK);
+            //MessageBox.Show("Respuesta Params:" + respuestaOK);
+            
+            /*if (respuestaOK.Equals("!", StringComparison.Ordinal))
+            {
+                MessageBox.Show("Correcta la respuesta Params");
+            }
+            */
+            serialPortMain.DataReceived -= new SerialDataReceivedEventHandler(serialPortMain_ConfirmParamsReceived);
+        }
+
         void serialPortMain_ConfirmBDReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            //Esto no hace nada, problemas con el envío del Banco de Datos.
-            //15 Febrero, esta es la rutina que se tiene que terminar para dar por finalizada
-            //la programación de todo.
+            //System.Threading.Thread.Sleep(1000);
+            int numdatosEntrada;
+            numdatosEntrada = serialPortMain.BytesToRead;
+            Byte[] datoOK = new Byte[numdatosEntrada];
+            serialPortMain.Read(datoOK, 0, numdatosEntrada);
+            string respuestaOK = System.Text.Encoding.UTF8.GetString(datoOK);
+            //MessageBox.Show("Respuesta BDatos:" + respuestaOK);
+            
+            /*if (respuestaOK.Equals("!", StringComparison.Ordinal) || respuestaOK.Equals("@", StringComparison.Ordinal))
+            {
+                MessageBox.Show("Correcta la respuesta Bdatos");
+            }
+            */
+            serialPortMain.DataReceived -= new SerialDataReceivedEventHandler(serialPortMain_ConfirmBDReceived);
         }
 
         void serialPortMain_BuffAMCReceived(object sender, SerialDataReceivedEventArgs e)
         
-        {
+        {   
+            System.Threading.Thread.Sleep(3000);
             int numdatosEntrada;
-            numdatosEntrada = serialPortMain.BytesToRead;
-            MessageBox.Show("Tengo para leer estos datos: "+ numdatosEntrada);
-            Byte[] datoBuffAMCReal = new Byte[numdatosEntrada];
-            serialPortMain.Read(datoBuffAMCReal, 0, numdatosEntrada);
+            int numdatosEntradabtr = serialPortMain.BytesToRead;
+            numdatosEntrada = 1548;
+            //MessageBox.Show("Tengo para leer estos datos: "+ numdatosEntradabtr);
+            Byte[] datoBuffAMCReal = new Byte[numdatosEntradabtr];
+            serialPortMain.Read(datoBuffAMCReal, 0, numdatosEntradabtr);
+            
+            //Actualiza.
             string respuestaBuffAMCReal = System.Text.Encoding.UTF8.GetString(datoBuffAMCReal);
-            MessageBox.Show("Toma tus datos:" + respuestaBuffAMCReal);
+            //MessageBox.Show("Toma tus datos:" + String.Join(",", respuestaBuffAMCReal));
             Byte[] datoBuffAMC = new Byte[1540];
             long[] datoEspecAMC = new long[512];
-            serialPortMain.Read(datoBuffAMC, 0, numdatosEntrada);
+            //serialPortMain.Read(datoBuffAMC, 0, numdatosEntrada);
             int i = 0;
             int j = 0;
             Array.Clear(datoEspecAMC, 0, datoEspecAMC.Length);
-            for (i = 1, j = 0; i < (512 * 3); j++, i += 3)
+            for (i = 2, j = 0; i < (512 * 3); j++, i += 3)
             {
-                long dato1n = Int64.Parse(datoBuffAMC[i].ToString(), NumberStyles.HexNumber);
-                long dato2n = Int64.Parse(datoBuffAMC[i + 1].ToString(), NumberStyles.HexNumber);
-                long dato3n = Int64.Parse(datoBuffAMC[i + 2].ToString(), NumberStyles.HexNumber);
+                long dato1n = Int64.Parse(datoBuffAMCReal[i].ToString(), NumberStyles.HexNumber);
+                long dato2n = Int64.Parse(datoBuffAMCReal[i + 1].ToString(), NumberStyles.HexNumber);
+                long dato3n = Int64.Parse(datoBuffAMCReal[i + 2].ToString(), NumberStyles.HexNumber);
                 datoEspecAMC[j] = dato1n + 256 * dato2n + 65536 * dato3n;
                 dato1n = 0;
                 dato2n = 0;
                 dato3n = 0;
             }
-            string respuestaBuffAMC = BitConverter.ToString(datoBuffAMC).Replace("-", " ");
+            string respuestaBuffAMC = BitConverter.ToString(datoBuffAMCReal).Replace("-", " ");
             string arrayLong = String.Join(",", datoEspecAMC.Select(p => p.ToString()).ToArray());
-            //MessageBox.Show("Toma tus datos:" + respuestaBuff);
+            //MessageBox.Show("Toma tus datos:" + respuestaBuffAMC);
             //MessageBox.Show("Vector de datos:" + arrayLong);
             string archivoAMCdraw = "currentAMC_Dev" + amcID.ToString() + ".data";
             StreamWriter espeamc = new System.IO.StreamWriter(archivoAMCdraw);
-            for (i = 1; i < datoEspecAMC.Length; i++)
+            long numbarridos = datoEspecAMC[datoEspecAMC.Length];
+            for (i = 1; i < datoEspecAMC.Length - 1; i++)
             {
                 espeamc.WriteLine(datoEspecAMC[i].ToString());
             }
+            espeamc.WriteLine(datoEspecAMC[509].ToString());
+            espeamc.WriteLine(datoEspecAMC[510].ToString());
             espeamc.Close();
             serialPortMain.DataReceived -= new SerialDataReceivedEventHandler(serialPortMain_BuffAMCReceived);
+            
             //serialPortMain.Close();
             CreateGraphAMC(zedGraphControlMainAMC);
             ActualiceGraficoAMC();
+
+             
+        
         }
 
         /* Esta rutina procesa el evento de recepción de datos del modo PHA/AAP para luego invocar el 
@@ -561,8 +1061,9 @@ namespace SerialControlAMCMB96
             System.Threading.Thread.Sleep(6000);
             int numdatosBuferEntrada;
             numdatosBuferEntrada = serialPortMain.BytesToRead;
-            MessageBox.Show("Tengo para leer estos datos: " + numdatosBuferEntrada);
-            Byte[] datoBuffAAP = new Byte[770];
+            //MessageBox.Show("Tengo para leer estos datos: " + numdatosBuferEntrada);
+            Byte[] datoBuffAAP = new Byte[numdatosBuferEntrada];//770
+
             long[] datoPulsosBufAAP = new long[256];
             serialPortMain.Read(datoBuffAAP, 0, numdatosBuferEntrada);
             int i = 0;
@@ -591,7 +1092,7 @@ namespace SerialControlAMCMB96
             espeaap.Close();
             serialPortMain.DataReceived -= new SerialDataReceivedEventHandler(serialPortMain_BuffAAPReceived);
             //serialPortMain.Close();
-            CreateGraphAAP(zedGraphControlMain);
+            CreateGraphAAP(graphMain);
             ActualiceGraficoAAP();
             
         }
@@ -605,10 +1106,11 @@ namespace SerialControlAMCMB96
         //Este handler es invocado por ActualiceGraficoAAP.
         private void DisplayAAPGraph(object sender, EventArgs e)
         {
-            zedGraphControlMain.Location = new Point(227, 44);
+            graphMain.Location = new Point(227, 44);
             // Leave a small margin around the outside of the control
-            zedGraphControlMain.Size = new Size(ClientRectangle.Width - 250,
+            graphMain.Size = new Size(ClientRectangle.Width - 250,
                                     ClientRectangle.Height - 100);
+            //graphMain.Show();
         }
 
         //Como es una actualización del componente gráfico, debe invocarse un EventHandler.
@@ -634,8 +1136,8 @@ namespace SerialControlAMCMB96
         private void refreshTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             instanciarPuertoSerial();
-            zedGraphControlMain.Refresh();
-            CreateGraphAAP(zedGraphControlMain);
+            graphMain.Refresh();
+            CreateGraphAAP(graphMain);
             ActualiceGraficoAAP();
         }
 
@@ -661,10 +1163,10 @@ namespace SerialControlAMCMB96
         }
         */
 
-        private void CreateGraphAAP(ZedGraphControl graphMain)
+        private void CreateGraphAAP(ZedGraphControl graphMainAAP)
         {
             // get a reference to the GraphPane
-            GraphPane PaneAAP = graphMain.GraphPane;
+            GraphPane PaneAAP = graphMainAAP.GraphPane;
             // Titulos y ejes
             PaneAAP.Title.Text = "Espectro de Pulsos en adquisición";
             //PaneAAP.Title.FontSpec.Family = 
@@ -705,7 +1207,7 @@ namespace SerialControlAMCMB96
             archivoActualAAP.Close();
             // Agregar un handler para cuando se detecte que el archivo cambia, y asi ejecutar de nuevo 
             // la generacion de la gráfica.
-            // Generar la curva
+            // Generar la curvaa
             PaneAAP.CurveList.Clear();
 
             LineItem myCurve = PaneAAP.AddCurve("Espectro", list1, Color.DarkBlue, SymbolType.Diamond);
@@ -716,7 +1218,8 @@ namespace SerialControlAMCMB96
 
             // Tell ZedGraph to refigure the
             // axes since the data have changed
-            graphMain.AxisChange();
+            graphMainAAP.AxisChange();
+            graphMainAAP.Invalidate();
         }
 
         private void CreateGraphAMC(ZedGraphControl graphMainAMC)
@@ -741,6 +1244,8 @@ namespace SerialControlAMCMB96
             PaneAMC.XAxis.Scale.MinGrace = 0.01;
             PaneAMC.YAxis.Scale.MaxGrace = 0.05;
             PaneAMC.YAxis.Scale.MinGrace = 0.05;
+            PaneAMC.XAxis.Scale.Max = 512;
+            
             int x, y1;
             int i = 1;
             string cuenta;
@@ -749,7 +1254,6 @@ namespace SerialControlAMCMB96
             File.Copy(archivoAMCdraw, amcplotfile_current, true);
             StreamReader archivoActualAMC = new StreamReader(amcplotfile_current);
             PointPairList list1 = new PointPairList();
-
             while ((cuenta = archivoActualAMC.ReadLine()) != null)
             {
                 x = i;
@@ -766,22 +1270,24 @@ namespace SerialControlAMCMB96
             PaneAMC.CurveList.Clear();
 
             LineItem myCurve = PaneAMC.AddCurve("Espectro", list1, Color.DarkBlue, SymbolType.Diamond);
-
-            myCurve.Symbol.Size = 3.0F;
+                
+            myCurve.Symbol.Size = 1.0F;
             myCurve.Symbol.Fill = new Fill(Color.DarkRed);
-            myCurve.Line.IsVisible = true;
+            myCurve.Line.IsVisible = false;
+            myCurve.Line.Fill = new Fill(Color.Blue, Color.White, 45F);
 
             // Tell ZedGraph to refigure the
             // axes since the data have changed
             graphMainAMC.AxisChange();
+            graphMainAMC.Invalidate();
         }
 
 
         private void FormMain_Load(object sender, EventArgs e)
         {
             InicializarPuerto(serialPortMain);
-            MenuModoAAP.Enabled = false;
-            MenuModoAMC.Enabled = false;
+            //MenuModoAAP.Enabled = false;
+            //  MenuModoAMC.Enabled = false;
         }
 
         private void radioButtonControlIntAAPAct_CheckedChanged(object sender, EventArgs e)
@@ -812,6 +1318,8 @@ namespace SerialControlAMCMB96
                 EnviarOrden(desactivarMedAMC);
             }
         }
+
+       
 
         
     }

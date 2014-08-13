@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SerialControlAMCMB96.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="COMPortName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM10</Value>
-    </Setting>
     <Setting Name="COMBaudRate" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9600</Value>
     </Setting>
@@ -18,13 +15,40 @@
       <Value Profile="(Default)">One</Value>
     </Setting>
     <Setting Name="COMHandshake" Type="System.IO.Ports.Handshake" Scope="User">
-      <Value Profile="(Default)">RequestToSend</Value>
+      <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="COMReadTimeout" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>
     </Setting>
     <Setting Name="COMWriteTimeout" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="COMPortName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM1</Value>
+    </Setting>
+    <Setting Name="ModoManejo" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="FrecuenciaBarrido" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="TiempoMuerto" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="Resolucion" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">256</Value>
+    </Setting>
+    <Setting Name="MaxVelocidad" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="FactorEscala" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="SignoVelocidad" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ModoAvance" Type="System.Char" Scope="User">
+      <Value Profile="(Default)">I</Value>
     </Setting>
   </Settings>
 </SettingsFile>
