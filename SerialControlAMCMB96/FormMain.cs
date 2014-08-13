@@ -1319,6 +1319,69 @@ namespace SerialControlAMCMB96
             }
         }
 
+        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string datafile;
+            SaveFileDialog guardarEspecDialog = new SaveFileDialog();
+            if (MenuModoAAP.Checked == true && MenuModoAMC.Checked == false)
+            {
+                guardarEspecDialog.Filter = "Archivo de altura de pulsos|*.aap";
+                guardarEspecDialog.Title = "Guardar archivo de altura de pulsos";
+                datafile = @"currentAAP_Dev" + amcID.ToString() + ".data";
+            }
+            else
+            {
+                if (MenuModoAMC.Checked == true && MenuModoAAP.Checked == false)
+                {
+                    guardarEspecDialog.Filter = "Archivo de espectro Mössbauer|*.amc|Todos los archivos |*.txt";
+                    guardarEspecDialog.Title = "Guardar archivo de espectro Mössbauer";
+                    datafile = @"currentAMC_Dev" + amcID.ToString() + ".data";
+                }
+                else
+                {
+                    MessageBox.Show("No se detectó el modo de operación para guardar archivo");
+                    return;
+                }
+            }
+
+            guardarEspecDialog.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (guardarEspecDialog.FileName != "")
+            {
+                using (FileStream fsout = (FileStream)guardarEspecDialog.OpenFile(), input = File.OpenRead(datafile))
+                {               
+
+                switch (guardarEspecDialog.FilterIndex)
+                {
+                    case 1:
+                        int read = -1;
+                        byte[] buffer = new byte[4096];
+                        while (read != 0)
+                        {
+                            read = input.Read(buffer, 0, buffer.Length);
+                            fsout.Write(buffer, 0, read);
+                        }
+                    break;
+
+                    case 2:
+                        read = -1;
+                        buffer = new byte[4096];
+                        while (read != 0)
+                        {
+                            read = input.Read(buffer, 0, buffer.Length);
+                            fsout.Write(buffer, 0, read);
+                        }
+                        break;
+                }
+
+                fsout.Close();
+                }
+            }
+
+
+        }
+
        
 
         

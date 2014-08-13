@@ -142,49 +142,50 @@
             this.toolStripMenuItem1,
             this.salirToolStripMenuItem});
             this.MenuArchivo.Name = "MenuArchivo";
-            this.MenuArchivo.Size = new System.Drawing.Size(55, 20);
+            this.MenuArchivo.Size = new System.Drawing.Size(60, 20);
             this.MenuArchivo.Text = "&Archivo";
             // 
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.nuevoToolStripMenuItem.Text = "&Nuevo";
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.abrirToolStripMenuItem.Text = "&Abrir";
             // 
             // guardarToolStripMenuItem
             // 
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.guardarToolStripMenuItem.Text = "&Guardar";
             // 
             // guardarComoToolStripMenuItem
             // 
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.guardarComoToolStripMenuItem.Text = "G&uardar como...";
+            this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.guardarComoToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(161, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(156, 6);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.salirToolStripMenuItem.Text = "&Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // MenuEditar
             // 
             this.MenuEditar.Name = "MenuEditar";
-            this.MenuEditar.Size = new System.Drawing.Size(47, 20);
+            this.MenuEditar.Size = new System.Drawing.Size(49, 20);
             this.MenuEditar.Text = "&Editar";
             // 
             // MenuHerramientas
@@ -196,14 +197,14 @@
             this.MenuOpciones,
             this.menuChequeoID});
             this.MenuHerramientas.Name = "MenuHerramientas";
-            this.MenuHerramientas.Size = new System.Drawing.Size(83, 20);
+            this.MenuHerramientas.Size = new System.Drawing.Size(90, 20);
             this.MenuHerramientas.Text = "&Herramientas";
             // 
             // MenuCOM
             // 
             this.MenuCOM.Name = "MenuCOM";
             this.MenuCOM.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
-            this.MenuCOM.Size = new System.Drawing.Size(226, 22);
+            this.MenuCOM.Size = new System.Drawing.Size(232, 22);
             this.MenuCOM.Text = "Configuración COM";
             this.MenuCOM.Click += new System.EventHandler(this.MenuCOM_Click);
             // 
@@ -213,14 +214,14 @@
             this.parametrosAMCMenuItem});
             this.MenuModoAMC.Name = "MenuModoAMC";
             this.MenuModoAMC.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F9)));
-            this.MenuModoAMC.Size = new System.Drawing.Size(226, 22);
+            this.MenuModoAMC.Size = new System.Drawing.Size(232, 22);
             this.MenuModoAMC.Text = "Modo AMC";
             this.MenuModoAMC.Click += new System.EventHandler(this.MenuModoAMC_Click);
             // 
             // parametrosAMCMenuItem
             // 
             this.parametrosAMCMenuItem.Name = "parametrosAMCMenuItem";
-            this.parametrosAMCMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.parametrosAMCMenuItem.Size = new System.Drawing.Size(203, 22);
             this.parametrosAMCMenuItem.Text = "Parámetros de Medición";
             this.parametrosAMCMenuItem.Click += new System.EventHandler(this.parametrosAMCMenuItem_Click);
             // 
@@ -228,7 +229,7 @@
             // 
             this.MenuModoAAP.Name = "MenuModoAAP";
             this.MenuModoAAP.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F10)));
-            this.MenuModoAAP.Size = new System.Drawing.Size(226, 22);
+            this.MenuModoAAP.Size = new System.Drawing.Size(232, 22);
             this.MenuModoAAP.Text = "Modo AAP";
             this.MenuModoAAP.Click += new System.EventHandler(this.MenuModoAAP_Click);
             // 
@@ -236,13 +237,13 @@
             // 
             this.MenuOpciones.Name = "MenuOpciones";
             this.MenuOpciones.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F12)));
-            this.MenuOpciones.Size = new System.Drawing.Size(226, 22);
+            this.MenuOpciones.Size = new System.Drawing.Size(232, 22);
             this.MenuOpciones.Text = "Opciones";
             // 
             // menuChequeoID
             // 
             this.menuChequeoID.Name = "menuChequeoID";
-            this.menuChequeoID.Size = new System.Drawing.Size(226, 22);
+            this.menuChequeoID.Size = new System.Drawing.Size(232, 22);
             this.menuChequeoID.Text = "Chequear ID";
             this.menuChequeoID.Click += new System.EventHandler(this.menuChequeoID_Click);
             // 
@@ -251,13 +252,13 @@
             this.MenuAbout.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.acercaDeMossCommToolStripMenuItem});
             this.MenuAbout.Name = "MenuAbout";
-            this.MenuAbout.Size = new System.Drawing.Size(79, 20);
+            this.MenuAbout.Size = new System.Drawing.Size(80, 20);
             this.MenuAbout.Text = "Acerca &de...";
             // 
             // acercaDeMossCommToolStripMenuItem
             // 
             this.acercaDeMossCommToolStripMenuItem.Name = "acercaDeMossCommToolStripMenuItem";
-            this.acercaDeMossCommToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.acercaDeMossCommToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.acercaDeMossCommToolStripMenuItem.Text = "Acerca de MossComm";
             // 
             // toolStrip1
