@@ -15,7 +15,7 @@ namespace SerialControlAMCMB96
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Application.Run(new SplashScr());
         }
     }
 }

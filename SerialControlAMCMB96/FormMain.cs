@@ -501,6 +501,7 @@ namespace SerialControlAMCMB96
             //string amcIniciar = "1I";
             MessageBox.Show("Comando enviado para iniciar: " + amcIniciar);
             EnviarOrden(amcIniciar);
+            MessageBox.Show("Flag iniciar");
             serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_ConfirmParamsReceived);
             //Byte[] confirmacion = new Byte[1];
             //serialPortMain.Read(confirmacion, 0, 1);
@@ -533,6 +534,7 @@ namespace SerialControlAMCMB96
             }
             string fincr = "\r";
             serialPortMain.Write(fincr);
+            MessageBox.Show("Flag envio datos");
             serialPortMain.DataReceived += new SerialDataReceivedEventHandler(serialPortMain_ConfirmParamsReceived);
         }
 
@@ -693,6 +695,21 @@ namespace SerialControlAMCMB96
                 string limbuf = "LM";
                 EnviarOrden(limbuf);
                 InicieAMC();
+                //InicializarPuerto(serialPortMain);
+                //byte[] control_interrumpir = new byte[3] { 0x43, 0x4D, 0x41 };
+                //string inicomando = "[";
+                //serialPortMain.Write(inicomando);
+                //for (int i = 0; i < control_interrumpir.Length; i++)
+                //{
+                //    byte[] chain = new byte[1] { control_interrumpir[i] };
+                //    serialPortMain.Write(chain, 0, chain.Length);
+                //    System.Threading.Thread.Sleep(50);
+
+                //}
+                //string fincr = "\r";
+                //serialPortMain.Write(fincr);
+                
+                
                 
             }
             if (radioButtonAMCContinue.Checked == true)
@@ -824,7 +841,7 @@ namespace SerialControlAMCMB96
                 {
                     byte[] chain = new byte[1] { bufamc[i] };
                     serialPortMain.Write(chain, 0, chain.Length);
-                    System.Threading.Thread.Sleep(50);
+                    System.Threading.Thread.Sleep(500);
 
                 }
                 serialPortMain.Write(fincr);
@@ -995,17 +1012,17 @@ namespace SerialControlAMCMB96
         void serialPortMain_BuffAMCReceived(object sender, SerialDataReceivedEventArgs e)
         
         {   
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(4000);
             int numdatosEntrada;
             int numdatosEntradabtr = serialPortMain.BytesToRead;
             numdatosEntrada = 1548;
-            //MessageBox.Show("Tengo para leer estos datos: "+ numdatosEntradabtr);
+            MessageBox.Show("Tengo para leer estos datos: "+ numdatosEntradabtr);
             Byte[] datoBuffAMCReal = new Byte[numdatosEntradabtr];
             serialPortMain.Read(datoBuffAMCReal, 0, numdatosEntradabtr);
             
             //Actualiza.
             string respuestaBuffAMCReal = System.Text.Encoding.UTF8.GetString(datoBuffAMCReal);
-            //MessageBox.Show("Toma tus datos:" + String.Join(",", respuestaBuffAMCReal));
+            MessageBox.Show("Toma tus datos:" + String.Join(",", respuestaBuffAMCReal));
             Byte[] datoBuffAMC = new Byte[1540];
             long[] datoEspecAMC = new long[512];
             //serialPortMain.Read(datoBuffAMC, 0, numdatosEntrada);
@@ -1024,11 +1041,11 @@ namespace SerialControlAMCMB96
             }
             string respuestaBuffAMC = BitConverter.ToString(datoBuffAMCReal).Replace("-", " ");
             string arrayLong = String.Join(",", datoEspecAMC.Select(p => p.ToString()).ToArray());
-            //MessageBox.Show("Toma tus datos:" + respuestaBuffAMC);
-            //MessageBox.Show("Vector de datos:" + arrayLong);
+            MessageBox.Show("Toma tus datos:" + respuestaBuffAMC);
+            MessageBox.Show("Vector de datos:" + arrayLong);
             string archivoAMCdraw = "currentAMC_Dev" + amcID.ToString() + ".data";
             StreamWriter espeamc = new System.IO.StreamWriter(archivoAMCdraw);
-            long numbarridos = datoEspecAMC[datoEspecAMC.Length];
+            long numbarridos = datoEspecAMC[datoEspecAMC.Length - 1];
             for (i = 1; i < datoEspecAMC.Length - 1; i++)
             {
                 espeamc.WriteLine(datoEspecAMC[i].ToString());
@@ -1327,7 +1344,7 @@ namespace SerialControlAMCMB96
             {
                 guardarEspecDialog.Filter = "Archivo de altura de pulsos|*.aap";
                 guardarEspecDialog.Title = "Guardar archivo de altura de pulsos";
-                datafile = @"currentAAP_Dev" + amcID.ToString() + ".data";
+                datafile = @"currentAAP_Dev" + amcID.ToString() + ".dataplot";
             }
             else
             {
@@ -1335,7 +1352,7 @@ namespace SerialControlAMCMB96
                 {
                     guardarEspecDialog.Filter = "Archivo de espectro Mössbauer|*.amc|Todos los archivos |*.txt";
                     guardarEspecDialog.Title = "Guardar archivo de espectro Mössbauer";
-                    datafile = @"currentAMC_Dev" + amcID.ToString() + ".data";
+                    datafile = @"currentAMC_Dev" + amcID.ToString() + ".dataplot";
                 }
                 else
                 {
@@ -1380,6 +1397,11 @@ namespace SerialControlAMCMB96
             }
 
 
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
 
        

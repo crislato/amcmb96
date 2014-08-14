@@ -43,7 +43,7 @@ namespace SerialControlAMCMB96
         comboBoxParity.Enabled = false;
         comboBoxStopBits.Enabled = false;
         comboBoxDataBits.Enabled = false;
-        comboBoxHandshake.Enabled = false;
+        comboBoxHandshake.Enabled = true;
         textBoxReadTimeout.Enabled = false;
         textBoxWriteTimeout.Enabled = false;
         }
