@@ -828,7 +828,7 @@ namespace SerialControlAMCMB96
                 {
                     byte[] chain = new byte[1] { control_interrumpir[i] };
                     serialPortMain.Write(chain, 0, chain.Length);
-                    System.Threading.Thread.Sleep(300);
+                    System.Threading.Thread.Sleep(50);
 
                 }
                 string fincr = "\r";
@@ -841,7 +841,7 @@ namespace SerialControlAMCMB96
                 {
                     byte[] chain = new byte[1] { bufamc[i] };
                     serialPortMain.Write(chain, 0, chain.Length);
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(100);
 
                 }
                 serialPortMain.Write(fincr);
@@ -1012,17 +1012,17 @@ namespace SerialControlAMCMB96
         void serialPortMain_BuffAMCReceived(object sender, SerialDataReceivedEventArgs e)
         
         {   
-            System.Threading.Thread.Sleep(4000);
-            int numdatosEntrada;
+            System.Threading.Thread.Sleep(2000);
+            //int numdatosEntrada;
             int numdatosEntradabtr = serialPortMain.BytesToRead;
-            numdatosEntrada = 1548;
-            MessageBox.Show("Tengo para leer estos datos: "+ numdatosEntradabtr);
+            //numdatosEntrada = 1548;
+            //MessageBox.Show("Tengo para leer estos datos: "+ numdatosEntradabtr);
             Byte[] datoBuffAMCReal = new Byte[numdatosEntradabtr];
             serialPortMain.Read(datoBuffAMCReal, 0, numdatosEntradabtr);
             
             //Actualiza.
             string respuestaBuffAMCReal = System.Text.Encoding.UTF8.GetString(datoBuffAMCReal);
-            MessageBox.Show("Toma tus datos:" + String.Join(",", respuestaBuffAMCReal));
+            //MessageBox.Show("Toma tus datos:" + String.Join(",", respuestaBuffAMCReal));
             Byte[] datoBuffAMC = new Byte[1540];
             long[] datoEspecAMC = new long[512];
             //serialPortMain.Read(datoBuffAMC, 0, numdatosEntrada);
@@ -1031,18 +1031,23 @@ namespace SerialControlAMCMB96
             Array.Clear(datoEspecAMC, 0, datoEspecAMC.Length);
             for (i = 2, j = 0; i < (512 * 3); j++, i += 3)
             {
-                long dato1n = Int64.Parse(datoBuffAMCReal[i].ToString(), NumberStyles.HexNumber);
-                long dato2n = Int64.Parse(datoBuffAMCReal[i + 1].ToString(), NumberStyles.HexNumber);
-                long dato3n = Int64.Parse(datoBuffAMCReal[i + 2].ToString(), NumberStyles.HexNumber);
-                datoEspecAMC[j] = dato1n + 256 * dato2n + 65536 * dato3n;
+                //Debug
+                //long dato1n = int.Parse(datoBuffAMCReal[i].ToString(), NumberStyles.HexNumber);
+                //long dato2n = int.Parse(datoBuffAMCReal[i + 1].ToString(), NumberStyles.HexNumber);
+                //long dato3n = int.Parse(datoBuffAMCReal[i + 2].ToString(), NumberStyles.HexNumber);
+                int dato1n = Convert.ToInt32(datoBuffAMCReal[i]);
+                int dato2n = Convert.ToInt32(datoBuffAMCReal[i+1]);
+                int dato3n = Convert.ToInt32(datoBuffAMCReal[i+2]);
+                //MessageBox.Show("Datos línea " + j + ": " + dato1n.ToString() + "," + dato2n.ToString() + "," + dato3n.ToString());
+                datoEspecAMC[j] = dato1n + (256 * dato2n) + (65536 * dato3n);
                 dato1n = 0;
                 dato2n = 0;
                 dato3n = 0;
             }
             string respuestaBuffAMC = BitConverter.ToString(datoBuffAMCReal).Replace("-", " ");
             string arrayLong = String.Join(",", datoEspecAMC.Select(p => p.ToString()).ToArray());
-            MessageBox.Show("Toma tus datos:" + respuestaBuffAMC);
-            MessageBox.Show("Vector de datos:" + arrayLong);
+            //MessageBox.Show("Toma tus datos:" + respuestaBuffAMC);
+            //MessageBox.Show("Vector de datos:" + arrayLong);
             string archivoAMCdraw = "currentAMC_Dev" + amcID.ToString() + ".data";
             StreamWriter espeamc = new System.IO.StreamWriter(archivoAMCdraw);
             long numbarridos = datoEspecAMC[datoEspecAMC.Length - 1];
@@ -1197,7 +1202,7 @@ namespace SerialControlAMCMB96
             PaneAAP.YAxis.MinorGrid.IsVisible = true;
             PaneAAP.XAxis.MinorGrid.Color = Color.LightGray;
             PaneAAP.YAxis.MinorGrid.Color = Color.LightGray;
-            PaneAAP.Legend.Position = ZedGraph.LegendPos.Bottom;
+            //PaneAAP.Legend.Position = ZedGraph.LegendPos.Bottom;
             PaneAAP.XAxis.Scale.MaxGrace = 0.01;
             PaneAAP.XAxis.Scale.MinGrace = 0.01;
             PaneAAP.YAxis.Scale.MaxGrace = 0.05;
@@ -1232,7 +1237,7 @@ namespace SerialControlAMCMB96
             myCurve.Symbol.Size = 3.0F;
             myCurve.Symbol.Fill = new Fill(Color.DarkRed);
             myCurve.Line.IsVisible = true;
-
+            myCurve.Label.IsVisible = false;
             // Tell ZedGraph to refigure the
             // axes since the data have changed
             graphMainAAP.AxisChange();
@@ -1256,7 +1261,8 @@ namespace SerialControlAMCMB96
             PaneAMC.YAxis.MinorGrid.IsVisible = true;
             PaneAMC.XAxis.MinorGrid.Color = Color.LightGray;
             PaneAMC.YAxis.MinorGrid.Color = Color.LightGray;
-            PaneAMC.Legend.Position = ZedGraph.LegendPos.Bottom;
+            //PaneAMC.Legend.Position = ZedGraph.LegendPos.Bottom;
+            PaneAMC.Legend.IsVisible = false;
             PaneAMC.XAxis.Scale.MaxGrace = 0.01;
             PaneAMC.XAxis.Scale.MinGrace = 0.01;
             PaneAMC.YAxis.Scale.MaxGrace = 0.05;
@@ -1285,14 +1291,14 @@ namespace SerialControlAMCMB96
             // la generacion de la gráfica.
             // Generar la curva
             PaneAMC.CurveList.Clear();
-
-            LineItem myCurve = PaneAMC.AddCurve("Espectro", list1, Color.DarkBlue, SymbolType.Diamond);
-                
+            var vec_list = list1.Select(pointPair => pointPair.Y).ToArray();
+            LineItem myCurve = PaneAMC.AddCurve("Espectro", list1, Color.DarkBlue, SymbolType.Diamond);    
             myCurve.Symbol.Size = 1.0F;
             myCurve.Symbol.Fill = new Fill(Color.DarkRed);
             myCurve.Line.IsVisible = false;
             myCurve.Line.Fill = new Fill(Color.Blue, Color.White, 45F);
-
+            myCurve.Label.IsVisible = false;
+            PaneAMC.YAxis.Scale.Max = 2*vec_list[10];
             // Tell ZedGraph to refigure the
             // axes since the data have changed
             graphMainAMC.AxisChange();

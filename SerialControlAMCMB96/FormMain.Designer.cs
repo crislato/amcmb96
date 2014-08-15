@@ -243,6 +243,7 @@
             // menuChequeoID
             // 
             this.menuChequeoID.Name = "menuChequeoID";
+            this.menuChequeoID.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F3)));
             this.menuChequeoID.Size = new System.Drawing.Size(232, 22);
             this.menuChequeoID.Text = "Chequear ID";
             this.menuChequeoID.Click += new System.EventHandler(this.menuChequeoID_Click);

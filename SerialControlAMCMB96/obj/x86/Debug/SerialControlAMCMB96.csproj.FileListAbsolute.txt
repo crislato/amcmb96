@@ -107,3 +107,4 @@ D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\S
 D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.exe
 D:\Usuarios\Latorre\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.pdb
 D:\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.SplashScr.resources
+C:\Documents and Settings\Administrador\Mis documentos\Dropbox\CompartidaConOtto\SerialControlAMCMB96-Def\amcmb96\SerialControlAMCMB96\obj\x86\Debug\SerialControlAMCMB96.SplashScr.resources
